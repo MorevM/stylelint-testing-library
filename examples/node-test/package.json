@@ -1,0 +1,19 @@
+{
+	"name": "@morev/stylelint-testing-utils-node-example",
+	"type": "module",
+	"version": "1.0.0",
+	"exports": {
+		".": {
+			"import": "./index.js"
+		}
+	},
+	"main": "./index.js",
+	"scripts": {
+		"test": "node --import ./node.test.setup.js --test"
+	},
+	"devDependencies": {
+		"@morev/stylelint-testing-library": "workspace:^",
+		"@morev/utils": "^3.12.1",
+		"stylelint": "^16.14.1"
+	}
+}

@@ -1,0 +1,82 @@
+{
+	"name": "@morev/stylelint-testing-library",
+	"description": "Platform agnostic solution for testing Stylelint plugins",
+	"type": "module",
+	"version": "0.0.0",
+	"packageManager": "yarn@4.5.1",
+	"workspaces": [
+		"examples/*"
+	],
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
+	},
+	"author": {
+		"name": "Maxim Morev",
+		"email": "max.seainside@gmail.com"
+	},
+	"homepage": "https://github.com/MorevM/stylelint-testing-library#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MorevM/stylelint-testing-library"
+	},
+	"keywords": [],
+	"files": [
+		"dist"
+	],
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"prepare": "lefthook install",
+		"test": "vitest",
+		"test:dev": "vitest --watch",
+		"lint": "yarn lint:eslint && yarn lint:stylelint",
+		"lint:fix": "yarn lint:eslint:fix && yarn lint:stylelint:fix",
+		"lint:eslint": "eslint .",
+		"lint:eslint:fix": "eslint . --fix",
+		"lint:stylelint": "stylelint \"**/*.{css,scss}\" --allow-empty-input",
+		"lint:stylelint:fix": "stylelint \"**/*.{css,scss}\" --fix --allow-empty-input",
+		"build": "tsup",
+		"release": "release-it --disable-metrics",
+		"docs:dev": "vitepress dev docs",
+		"docs:build": "vitepress build docs",
+		"docs:preview": "vitepress preview docs"
+	},
+	"dependencies": {
+		"@morev/utils": "^3.12.1"
+	},
+	"devDependencies": {
+		"@morev/commitlint-config": "^0.2.2",
+		"@morev/eslint-config": "^36.3.2",
+		"@morev/stylelint-config": "^7.1.0",
+		"@release-it/conventional-changelog": "10.0.0",
+		"@shikijs/transformers": "^2.3.2",
+		"@types/node": "^22.13.4",
+		"eslint": "^9.20.1",
+		"lefthook": "^1.10.10",
+		"postcss": "^8.5.2",
+		"release-it": "^18.1.2",
+		"stylelint": "^16.14.1",
+		"tsup": "^8.3.6",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.3",
+		"vite-tsconfig-paths": "^5.1.4",
+		"vitepress": "^1.6.3",
+		"vitest": "^3.0.5",
+		"vue": "^3.5.13"
+	}
+}

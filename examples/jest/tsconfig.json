@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"moduleResolution": "bundler",
+		"outDir": "./dist",
+		"strictNullChecks": true,
+		"allowJs": false,
+		"esModuleInterop": true,
+		"types": ["jest"],
+	},
+}

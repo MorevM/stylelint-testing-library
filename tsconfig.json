@@ -1,0 +1,34 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"forceConsistentCasingInFileNames": true,
+		"checkJs": false,
+		"allowJs": false,
+		"skipLibCheck": true,
+		"types": ["node"],
+		"paths": {
+			"#": ["./src/index.ts"],
+			"#lib": ["./src/lib/index.ts"],
+			"#utils": ["./src/utils.ts"],
+			"#types": ["./src/types/index.ts"],
+			"#types/internal": ["./src/types/internal/index.ts"],
+		},
+	},
+	"ts-node": {
+		"esm": true,
+	},
+	"include": [
+		"**/*.ts",
+		"**/*.js",
+		"**/.vitepress/**/*.ts",
+	],
+	"exclude": [
+		"./dist/**",
+	],
+}

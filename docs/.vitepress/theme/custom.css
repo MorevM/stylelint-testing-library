@@ -1,0 +1,23 @@
+.VPHero .name,
+.VPHero .tagline {
+	max-width: 100% !important;
+}
+
+.dark .highlight-spaces-inside {
+	color: var(--shiki-dark, inherit);
+}
+
+html:not(.dark) .highlight-spaces-inside {
+	color: var(--shiki-light, inherit);
+}
+
+.highlight-spaces-inside .space::before {
+	content: '·';
+	position: absolute;
+	opacity: .3;
+}
+
+:root {
+	--vp-home-hero-image-background-image: linear-gradient(-45deg, #b617ff 50%, #00b7ff 50%);
+	--vp-home-hero-image-filter: blur(120px);
+}
