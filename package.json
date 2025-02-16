@@ -21,7 +21,12 @@
 		"type": "git",
 		"url": "https://github.com/MorevM/stylelint-testing-library"
 	},
-	"keywords": [],
+	"keywords": [
+		"stylelint",
+		"stylelint-plugin",
+		"testing",
+		"testing-library"
+	],
 	"files": [
 		"dist"
 	],
