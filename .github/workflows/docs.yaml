@@ -1,4 +1,4 @@
-name: Playground
+name: Docs
 
 on:
   push:
