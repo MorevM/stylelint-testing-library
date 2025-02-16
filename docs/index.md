@@ -12,8 +12,8 @@ hero:
       text: API Reference
       link: /api/create-test-utils
   image:
-    src: /assets/logo.svg
-    alt: VitePress
+    src: /logo.svg
+    alt: '@morev/stylelint-testing-library logo'
 
 features:
   - title: Platform agnostic solution
