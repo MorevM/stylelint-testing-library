@@ -16,4 +16,4 @@ Platform agnostic solution for testing Stylelint plugins.
 ✔️ Reduces the amount of boilerplate code due to a nice public API; \
 ✔️ First-class TypeScript support, written in TS.
 
-For more details on installation, API and more, [go to the documentation website](https://morevm.github.io/stylelint-testing-platform/).
+For more details on installation, API and more, [go to the documentation website](https://morevm.github.io/stylelint-testing-library/).
