@@ -70,7 +70,7 @@
 		"@morev/stylelint-config": "^7.1.0",
 		"@release-it/conventional-changelog": "8.0.2",
 		"@shikijs/transformers": "^2.3.2",
-		"@types/node": "^22.13.4",
+		"@types/node": "^22.14.0",
 		"eslint": "^9.20.1",
 		"lefthook": "^1.10.10",
 		"postcss": "^8.5.2",
