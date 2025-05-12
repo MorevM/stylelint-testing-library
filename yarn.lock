@@ -2560,7 +2560,7 @@ __metadata:
     "@morev/stylelint-config": "npm:^7.1.0"
     "@morev/utils": "npm:^3.12.1"
     "@release-it/conventional-changelog": "npm:8.0.2"
-    "@shikijs/transformers": "npm:^2.3.2"
+    "@shikijs/transformers": "npm:^3.4.0"
     "@types/node": "npm:^22.13.4"
     eslint: "npm:^9.20.1"
     lefthook: "npm:^1.10.10"
@@ -3155,6 +3155,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shikijs/core@npm:3.4.0":
+  version: 3.4.0
+  resolution: "@shikijs/core@npm:3.4.0"
+  dependencies:
+    "@shikijs/types": "npm:3.4.0"
+    "@shikijs/vscode-textmate": "npm:^10.0.2"
+    "@types/hast": "npm:^3.0.4"
+    hast-util-to-html: "npm:^9.0.5"
+  checksum: 10c0/715d1e994dcbcbcd76bbe64d0f7f703a561b01e3d8d17392352039ec65a621ce7fd9866833ec9bdb4dd2fad8c2415fa92c055ac61bcc3f64cae87b646e8405b2
+  languageName: node
+  linkType: hard
+
 "@shikijs/engine-javascript@npm:2.3.2":
   version: 2.3.2
   resolution: "@shikijs/engine-javascript@npm:2.3.2"
@@ -3194,13 +3206,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shikijs/transformers@npm:^2.1.0, @shikijs/transformers@npm:^2.3.2":
+"@shikijs/transformers@npm:^2.1.0":
   version: 2.3.2
   resolution: "@shikijs/transformers@npm:2.3.2"
   dependencies:
     "@shikijs/core": "npm:2.3.2"
     "@shikijs/types": "npm:2.3.2"
   checksum: 10c0/7cf7c8c9b19c09bd308e5a7ff2fc7ac9b65d9a661ddf06f875d3ae9d6515a87c9f63596e437f9a151a2f8d620c8cc8f78ca7d3555019d5e9c029b5c14754ad81
+  languageName: node
+  linkType: hard
+
+"@shikijs/transformers@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@shikijs/transformers@npm:3.4.0"
+  dependencies:
+    "@shikijs/core": "npm:3.4.0"
+    "@shikijs/types": "npm:3.4.0"
+  checksum: 10c0/ada3e08f8617b2a1a2da7494ef42353f0095fc9294cf08e732a78a8b5f64f5e6f6dd7112d90cdca3325e567c8b09c3f300569daef8ac96dd06962245995e8304
   languageName: node
   linkType: hard
 
@@ -3214,10 +3236,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shikijs/types@npm:3.4.0":
+  version: 3.4.0
+  resolution: "@shikijs/types@npm:3.4.0"
+  dependencies:
+    "@shikijs/vscode-textmate": "npm:^10.0.2"
+    "@types/hast": "npm:^3.0.4"
+  checksum: 10c0/3a2d51208981e1ca70101dc5575e60cffca223cdc0aeb1683b3b4a582205edf185c104b41c5092b2dfca96d1f81a88d12e16161cb8288287949b90ac5eabf531
+  languageName: node
+  linkType: hard
+
 "@shikijs/vscode-textmate@npm:^10.0.1":
   version: 10.0.1
   resolution: "@shikijs/vscode-textmate@npm:10.0.1"
   checksum: 10c0/acdbcf1b00d2503620ab50c2a23c7876444850ae0610c8e8b85a29587a333be40c9b98406ff17b9f87cbc64674dac6a2ada680374bde3e51a890e16cf1407490
+  languageName: node
+  linkType: hard
+
+"@shikijs/vscode-textmate@npm:^10.0.2":
+  version: 10.0.2
+  resolution: "@shikijs/vscode-textmate@npm:10.0.2"
+  checksum: 10c0/36b682d691088ec244de292dc8f91b808f95c89466af421cf84cbab92230f03c8348649c14b3251991b10ce632b0c715e416e992dd5f28ff3221dc2693fd9462
   languageName: node
   linkType: hard
 
@@ -8194,6 +8233,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hast-util-to-html@npm:^9.0.5":
+  version: 9.0.5
+  resolution: "hast-util-to-html@npm:9.0.5"
+  dependencies:
+    "@types/hast": "npm:^3.0.0"
+    "@types/unist": "npm:^3.0.0"
+    ccount: "npm:^2.0.0"
+    comma-separated-tokens: "npm:^2.0.0"
+    hast-util-whitespace: "npm:^3.0.0"
+    html-void-elements: "npm:^3.0.0"
+    mdast-util-to-hast: "npm:^13.0.0"
+    property-information: "npm:^7.0.0"
+    space-separated-tokens: "npm:^2.0.0"
+    stringify-entities: "npm:^4.0.0"
+    zwitch: "npm:^2.0.4"
+  checksum: 10c0/b7a08c30bab4371fc9b4a620965c40b270e5ae7a8e94cf885f43b21705179e28c8e43b39c72885d1647965fb3738654e6962eb8b58b0c2a84271655b4d748836
+  languageName: node
+  linkType: hard
+
 "hast-util-whitespace@npm:^3.0.0":
   version: 3.0.0
   resolution: "hast-util-whitespace@npm:3.0.0"
@@ -11750,6 +11808,13 @@ __metadata:
   version: 6.5.0
   resolution: "property-information@npm:6.5.0"
   checksum: 10c0/981e0f9cc2e5acdb414a6fd48a99dd0fd3a4079e7a91ab41cf97a8534cf43e0e0bc1ffada6602a1b3d047a33db8b5fc2ef46d863507eda712d5ceedac443f0ef
+  languageName: node
+  linkType: hard
+
+"property-information@npm:^7.0.0":
+  version: 7.1.0
+  resolution: "property-information@npm:7.1.0"
+  checksum: 10c0/e0fe22cff26103260ad0e82959229106563fa115a54c4d6c183f49d88054e489cc9f23452d3ad584179dc13a8b7b37411a5df873746b5e4086c865874bfa968e
   languageName: node
   linkType: hard
 
