@@ -5,15 +5,15 @@ Install the package alongside `stylelint`:
 ::: code-group
 
 ```sh [npm]
-npm add -D @morev/stylelint-testing-utils stylelint
+npm add -D @morev/stylelint-testing-library stylelint
 ```
 
 ```sh [yarn]
-yarn add -D @morev/stylelint-testing-utils stylelint
+yarn add -D @morev/stylelint-testing-library stylelint
 ```
 
 ```sh [pnpm]
-pnpm add -D @morev/stylelint-testing-utils stylelint
+pnpm add -D @morev/stylelint-testing-library stylelint
 ```
 
 :::
