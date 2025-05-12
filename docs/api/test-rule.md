@@ -88,9 +88,9 @@ testRule({
   description: '"ignore" option as array of strings',
   config: [true, { ignore: ['foo', 'bar'] }],
   accept: [
-    { code: '.foo {}' }
-    { code: '.bar {}' }
-  ]
+    { code: '.foo {}' },
+    { code: '.bar {}' },
+  ],
 })
 ```
 
@@ -216,7 +216,7 @@ using the [`autoStripIndent` option](/api/create-test-utils#autostripindent).
 testRule({
   config: true,
   accept: [
-    { code: '.foo {}' }
+    { code: '.foo {}' },
     {
       code: `
         .foo {
@@ -225,9 +225,9 @@ testRule({
           }
         }
       `
-    }
-  ]
-})
+    },
+  ],
+});
 ```
 
 #### `description`
@@ -370,9 +370,9 @@ testRule({
     {
       code: '.THE-SELECTOR {}',
       fixed: '.the-selector {}',
-    }
-  ]
-})
+    },
+  ],
+});
 ```
 
 ### Additional features

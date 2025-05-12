@@ -243,11 +243,11 @@ testRuleConfig({
     { // [!code focus]
       only: true, // [!code focus]
       description: 'Keyword "always"', // [!code focus]
-      config: 'always' // [!code focus]
+      config: 'always', // [!code focus]
     }, // [!code focus]
     {
       description: 'Keyword "never"',
-      config: 'never'
+      config: 'never',
     },
   ],
 });

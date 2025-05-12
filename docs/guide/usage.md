@@ -225,8 +225,8 @@ testRule({
           message: messages.unexpected('.FOO'),
           line: 1, column: 1,
           endLine: 1, endColumn: 5,
-        }
-      ]
+        },
+      ],
     },
     {
       description: 'Reports selectors except ignored one',
