@@ -37,15 +37,22 @@ import { describe, it } from 'node:test';
 // 2. Import the factory that will create functions bound to Node test runner
 import { createTestUtils } from '@morev/stylelint-testing-library';
 
-// 3. Create testing functions
+// 3. Import all the rules you want to test - this is usually
+// the file that is the default export of your package.
+// This step is generally optional - you can do it later,
+// but it's recommended, as it reduces the amount of boilerplate code.
+import plugins from './index.js';
+
+// 4. Create testing functions
 // To see all available `createTestUtils` options, please
 // refer to the `API Reference` section of this documentation
 // or use inline IDE suggestions.
 const { createTestRule, createTestRuleConfig } = createTestUtils({
   testFunctions: { it, describe, assert },
+  plugins,
 });
 
-// 4. Make these functions globally available
+// 5. Make these functions globally available
 // If you don't like to declare test functions globally -
 // you should export these functions from a file
 // and import it in each test.
@@ -53,10 +60,11 @@ globalThis.createTestRule = createTestRule;
 globalThis.createTestRuleConfig = createTestRuleConfig;
 ```
 
-```ts [node.test.setup.js (without comments)]
+```js [node.test.setup.js (without comments)]
 import * as assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { createTestUtils } from '@morev/stylelint-testing-library';
+import plugins from './index.js';
 
 const { createTestRule, createTestRuleConfig } = createTestUtils({
   testFunctions: { it, describe, assert },
@@ -64,6 +72,17 @@ const { createTestRule, createTestRuleConfig } = createTestUtils({
 
 globalThis.createTestRule = createTestRule;
 globalThis.createTestRuleConfig = createTestRuleConfig;
+```
+
+```js [index.js]
+// All the rules that your plugin provides.
+// This file is usually the default export of your package.
+import lowercaseSelectorsRule from './rules/lowercase-selectors.js';
+
+export default [
+  lowercaseSelectorsRule,
+];
+
 ```
 
 :::
