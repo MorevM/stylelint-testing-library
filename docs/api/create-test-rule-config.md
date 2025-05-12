@@ -25,7 +25,7 @@ testRuleConfig({
 ## Options
 
 You can always see the actual options in the source code
-[here](https://github.com/morevm/stylelint-testing-library/src/types/create-test-rule-config-schema.ts).
+[here](https://github.com/morevm/stylelint-testing-library/tree/master/src/types/create-test-rule-config-schema.ts).
 
 ### `ruleName`
 

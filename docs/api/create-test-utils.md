@@ -8,7 +8,7 @@ Here you can configure some useful defaults described below.
 ## Options
 
 You can always see the actual options in the source code
-[here](https://github.com/morevm/stylelint-testing-library/src/types/create-test-utils-schema.ts).
+[here](https://github.com/morevm/stylelint-testing-library/tree/master/src/types/create-test-utils-schema.ts).
 
 ### `testingFunctions`
 

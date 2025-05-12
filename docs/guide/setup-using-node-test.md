@@ -6,7 +6,7 @@
 
 ::: tip
 You can see the described example as a code
-in the repository [here](https://github.com/morevm/stylelint-testing-library/examples/node-test).
+in the repository [here](https://github.com/morevm/stylelint-testing-library/tree/master/examples/node-test).
 :::
 
 ::: info Author's Note

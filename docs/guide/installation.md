@@ -27,4 +27,4 @@ The following steps depend on which testing platform you're using - choose yours
 ---
 
 If you prefer to look at code instead of documentation - check out the
-[`examples` directory in the repository](https://github.com/morevm/stylelint-testing-library/examples/).
+[`examples` directory in the repository](https://github.com/morevm/stylelint-testing-library/tree/master/examples/).

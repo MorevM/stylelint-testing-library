@@ -37,7 +37,7 @@ testRule({
 ## Options
 
 You can always see the actual options in the source code
-[here](https://github.com/morevm/stylelint-testing-library/src/types/test-rule-schema.ts).
+[here](https://github.com/morevm/stylelint-testing-library/tree/master/src/types/test-rule-schema.ts).
 
 ### `ruleName`
 
