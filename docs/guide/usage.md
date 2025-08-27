@@ -9,6 +9,10 @@ Please refer to the `API Reference` section where all possible options are writt
 or inspect function arguments using the inline autocomplete suggestions in your IDE -
 detailed JSDoc's are written for all functions.
 
+For a real-world example of this library in use,
+explore [@morev/stylelint-plugin](https://github.com/MorevM/stylelint-plugin),
+a Stylelint plugin enforcing BEM and (S)CSS best practices.
+
 :::
 
 Install the package and configure your test runner to work with it using the instructions in the [`Installation`](/guide/installation) section.

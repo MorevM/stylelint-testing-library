@@ -7,7 +7,8 @@ on top of [`vite`](https://vite.dev/) with out-of-box ESM and TypeScript support
 
 ::: tip
 You can see the described example as a code
-in the repository [here](https://github.com/morevm/stylelint-testing-library/tree/master/examples/vitest).
+in the repository [here](https://github.com/morevm/stylelint-testing-library/tree/master/examples/vitest). \
+Also you can explore [@morev/stylelint-plugin](https://github.com/MorevM/stylelint-plugin), which relies on this library to deliver a battle-tested set of rules enforcing BEM and (S)CSS best practices.
 :::
 
 ::: warning Note
