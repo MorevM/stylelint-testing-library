@@ -17,20 +17,22 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v4
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: pnpm install --frozen-lockfile
 
       - name: Build docs
-        run: yarn docs:build
+        run: pnpm docs:build
 
       - name: Publish to GH pages
         uses: JamesIves/github-pages-deploy-action@v4.2.5

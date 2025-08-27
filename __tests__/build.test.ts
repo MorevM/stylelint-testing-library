@@ -3,7 +3,7 @@ import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 
 describe('Build', () => {
-	beforeAll(() => execSync('yarn build'));
+	beforeAll(() => execSync('pnpm build'));
 
 	it('Forms ESM exports', () => {
 		expect(existsSync('./dist/index.js')).toBe(true);
