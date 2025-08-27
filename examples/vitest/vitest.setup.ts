@@ -1,4 +1,4 @@
-/* eslint-disable vars-on-top, no-autofix/no-var */
+/* eslint-disable vars-on-top */
 import { assert, describe, expect, it } from 'vitest';
 import { createTestUtils } from '@morev/stylelint-testing-library';
 import plugins from './index';

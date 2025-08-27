@@ -1,4 +1,4 @@
-/* eslint-disable no-autofix/no-var, vars-on-top */
+/* eslint-disable vars-on-top */
 import type { CreateTestRule, CreateTestRuleConfig } from '@morev/stylelint-testing-library';
 
 declare global {
@@ -6,4 +6,5 @@ declare global {
 	var createTestRuleConfig: CreateTestRuleConfig;
 }
 
+// eslint-disable-next-line unicorn/require-module-specifiers -- https://github.com/sindresorhus/eslint-plugin-unicorn/issues/2710
 export {};

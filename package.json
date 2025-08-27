@@ -65,8 +65,8 @@
 	},
 	"devDependencies": {
 		"@morev/commitlint-config": "^0.2.2",
-		"@morev/eslint-config": "^36.3.2",
-		"@morev/stylelint-config": "^7.1.0",
+		"@morev/eslint-config": "^40.0.0",
+		"@morev/stylelint-config": "^8.0.2",
 		"@release-it/conventional-changelog": "8.0.2",
 		"@shikijs/transformers": "^2.3.2",
 		"@types/node": "^22.13.4",
