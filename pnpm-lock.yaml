@@ -117,6 +117,9 @@ importers:
       '@morev/utils':
         specifier: ^3.12.1
         version: 3.13.1
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
       stylelint:
         specifier: ^16.14.1
         version: 16.23.1(typescript@5.9.2)
