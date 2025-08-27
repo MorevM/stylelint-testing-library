@@ -2,6 +2,9 @@
 	"name": "@morev/stylelint-testing-utils-vitest-example",
 	"type": "module",
 	"version": "1.0.0",
+	"engines": {
+		"node": ">=18"
+	},
 	"exports": {
 		".": {
 			"import": "./dist/index.js"
