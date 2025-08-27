@@ -186,6 +186,7 @@ const testRule = (schema: InternalTestRuleSchema) => {
 				const { result: afterFixResult } = await lintWithOptions({
 					...stylelintOptions,
 					code: fixedCode ?? '',
+					fix: true,
 				});
 
 				universal.assert.deepEqual(
