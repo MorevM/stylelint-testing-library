@@ -1,5 +1,12 @@
 
 
+## [1.0.2](https://github.com/MorevM/stylelint-testing-library/compare/v1.0.1...v1.0.2) (2025-09-02)
+
+
+### Chores
+
+* Add `stylelint` to `peerDependencies` of the package ([#65](https://github.com/MorevM/stylelint-testing-library/issues/65)) ([4e15101](https://github.com/MorevM/stylelint-testing-library/commit/4e1510103c5f530df2d893dec6b5b17a174bf813))
+
 ## [1.0.1](https://github.com/MorevM/stylelint-testing-library/compare/v1.0.0...v1.0.1) (2025-08-27)
 
 

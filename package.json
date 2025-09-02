@@ -2,7 +2,7 @@
 	"name": "@morev/stylelint-testing-library",
 	"description": "Platform agnostic solution for testing Stylelint plugins",
 	"type": "module",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"engines": {
 		"node": ">=18"
 	},
