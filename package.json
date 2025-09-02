@@ -60,6 +60,9 @@
 		"docs:build": "vitepress build docs",
 		"docs:preview": "vitepress preview docs"
 	},
+	"peerDependencies": {
+		"stylelint": "^16"
+	},
 	"dependencies": {
 		"@morev/utils": "^3.12.1"
 	},
