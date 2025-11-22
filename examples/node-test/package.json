@@ -17,6 +17,6 @@
 	"devDependencies": {
 		"@morev/stylelint-testing-library": "workspace:^",
 		"@morev/utils": "^3.12.1",
-		"stylelint": "^16.14.1"
+		"stylelint": "^16.26.0"
 	}
 }
