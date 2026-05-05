@@ -61,7 +61,7 @@
 		"docs:preview": "vitepress preview docs"
 	},
 	"peerDependencies": {
-		"stylelint": "^16 || ^17"
+		"stylelint": ">=16"
 	},
 	"dependencies": {
 		"@morev/utils": "^3.12.1"
