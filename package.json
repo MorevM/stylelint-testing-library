@@ -52,8 +52,8 @@
 		"lint:fix": "pnpm lint:eslint:fix && pnpm lint:stylelint:fix",
 		"lint:eslint": "eslint .",
 		"lint:eslint:fix": "eslint . --fix",
-		"lint:stylelint": "stylelint \"**/*.{css,scss}\" --allow-empty-input",
-		"lint:stylelint:fix": "stylelint \"**/*.{css,scss}\" --fix --allow-empty-input",
+		"lint:stylelint": "stylelint \"**/*.css}\" --allow-empty-input",
+		"lint:stylelint:fix": "stylelint \"**/*.css\" --fix --allow-empty-input",
 		"build": "tsup",
 		"release": "release-it --disable-metrics",
 		"docs:dev": "vitepress dev docs",
@@ -61,7 +61,7 @@
 		"docs:preview": "vitepress preview docs"
 	},
 	"peerDependencies": {
-		"stylelint": "^16"
+		"stylelint": ">=16"
 	},
 	"dependencies": {
 		"@morev/utils": "^3.12.1"
@@ -77,7 +77,7 @@
 		"lefthook": "^1.10.10",
 		"postcss": "^8.5.2",
 		"release-it": "^18.1.2",
-		"stylelint": "^16.14.1",
+		"stylelint": "^17.10.0",
 		"tsup": "^8.3.6",
 		"tsx": "^4.19.2",
 		"typescript": "^5.7.3",

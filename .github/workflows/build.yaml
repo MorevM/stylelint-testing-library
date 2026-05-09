@@ -8,7 +8,14 @@ on:
 
 jobs:
   lint-and-test:
+    name: Node ${{ matrix.node }} / Stylelint ${{ matrix.stylelint }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+        stylelint: [16, 17]
+
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -21,11 +28,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node }}
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Set Stylelint version
+        run: pnpm add --save-dev stylelint@^${{ matrix.stylelint }}
 
       - name: Build
         run: pnpm build
@@ -35,6 +45,3 @@ jobs:
 
       - name: Testing
         run: pnpm test
-
-      - name: Build
-        run: pnpm build
