@@ -75,7 +75,7 @@
 		"@types/node": "^22.13.4",
 		"eslint": "^9.20.1",
 		"lefthook": "^1.10.10",
-		"postcss": "^8.5.2",
+		"postcss": "^8.5.14",
 		"release-it": "^18.1.2",
 		"stylelint": "^17.10.0",
 		"tsup": "^8.3.6",
