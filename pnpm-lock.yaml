@@ -57,9 +57,6 @@ importers:
       vite:
         specifier: ^8.0.11
         version: 8.0.11(@types/node@22.18.0)(esbuild@0.25.9)(tsx@4.20.5)(yaml@2.8.4)
-      vite-tsconfig-paths:
-        specifier: ^5.1.4
-        version: 5.1.4(typescript@5.9.2)(vite@8.0.11(@types/node@22.18.0)(esbuild@0.25.9)(tsx@4.20.5)(yaml@2.8.4))
       vitepress:
         specifier: ^1.6.3
         version: 1.6.4(@algolia/client-search@5.36.0)(@types/node@22.18.0)(change-case@5.4.4)(lightningcss@1.32.0)(postcss@8.5.6)(search-insights@2.17.3)(typescript@5.9.2)
@@ -6012,16 +6009,6 @@ packages:
       '@swc/wasm':
         optional: true
 
-  tsconfck@3.1.6:
-    resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
-    engines: {node: ^18 || >=20}
-    hasBin: true
-    peerDependencies:
-      typescript: ^5.0.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
@@ -6228,14 +6215,6 @@ packages:
     resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
-
-  vite-tsconfig-paths@5.1.4:
-    resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
-    peerDependencies:
-      vite: '*'
-    peerDependenciesMeta:
-      vite:
-        optional: true
 
   vite@5.4.19:
     resolution: {integrity: sha512-qO3aKv3HoQC8QKiNSTuUM1l9o/XX3+c+VTgLHbJWHZGeTPVAg2XwazI9UWzoxjIJCGCV2zU60uqMzjeLZuULqA==}
@@ -7005,7 +6984,7 @@ snapshots:
       '@types/node': 20.5.1
       chalk: 4.1.2
       cosmiconfig: 8.3.6(typescript@5.9.2)
-      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.9.2))(ts-node@10.9.2(@types/node@22.18.0)(typescript@5.9.2))(typescript@5.9.2)
+      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.9.2))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.9.2))(typescript@5.9.2)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -7641,14 +7620,14 @@ snapshots:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.18.0
+      '@types/node': 22.19.17
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       ci-info: 3.9.0
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 29.7.0
-      jest-config: 29.7.0(@types/node@22.18.0)(ts-node@10.9.2(@types/node@22.18.0)(typescript@5.9.2))
+      jest-config: 29.7.0(@types/node@22.19.17)(ts-node@10.9.2(@types/node@22.18.0)(typescript@5.9.2))
       jest-haste-map: 29.7.0
       jest-message-util: 29.7.0
       jest-regex-util: 29.6.3
@@ -9358,7 +9337,7 @@ snapshots:
     dependencies:
       browserslist: 4.28.2
 
-  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.9.2))(ts-node@10.9.2(@types/node@22.18.0)(typescript@5.9.2))(typescript@5.9.2):
+  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.9.2))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.9.2))(typescript@5.9.2):
     dependencies:
       '@types/node': 20.5.1
       cosmiconfig: 8.3.6(typescript@5.9.2)
@@ -11031,6 +11010,37 @@ snapshots:
       strip-json-comments: 3.1.1
     optionalDependencies:
       '@types/node': 22.18.0
+      ts-node: 10.9.2(@types/node@20.5.1)(typescript@5.9.2)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
+
+  jest-config@29.7.0(@types/node@22.19.17)(ts-node@10.9.2(@types/node@22.18.0)(typescript@5.9.2)):
+    dependencies:
+      '@babel/core': 7.28.3
+      '@jest/test-sequencer': 29.7.0
+      '@jest/types': 29.6.3
+      babel-jest: 29.7.0(@babel/core@7.28.3)
+      chalk: 4.1.2
+      ci-info: 3.9.0
+      deepmerge: 4.3.1
+      glob: 7.2.3
+      graceful-fs: 4.2.11
+      jest-circus: 29.7.0
+      jest-environment-node: 29.7.0
+      jest-get-type: 29.6.3
+      jest-regex-util: 29.6.3
+      jest-resolve: 29.7.0
+      jest-runner: 29.7.0
+      jest-util: 29.7.0
+      jest-validate: 29.7.0
+      micromatch: 4.0.8
+      parse-json: 5.2.0
+      pretty-format: 29.7.0
+      slash: 3.0.0
+      strip-json-comments: 3.1.1
+    optionalDependencies:
+      '@types/node': 22.19.17
       ts-node: 10.9.2(@types/node@20.5.1)(typescript@5.9.2)
     transitivePeerDependencies:
       - babel-plugin-macros
@@ -13324,10 +13334,6 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
-  tsconfck@3.1.6(typescript@5.9.2):
-    optionalDependencies:
-      typescript: 5.9.2
-
   tslib@2.8.1: {}
 
   tsup@8.5.0(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.4):
@@ -13598,17 +13604,6 @@ snapshots:
       - terser
       - tsx
       - yaml
-
-  vite-tsconfig-paths@5.1.4(typescript@5.9.2)(vite@8.0.11(@types/node@22.18.0)(esbuild@0.25.9)(tsx@4.20.5)(yaml@2.8.4)):
-    dependencies:
-      debug: 4.4.1
-      globrex: 0.1.2
-      tsconfck: 3.1.6(typescript@5.9.2)
-    optionalDependencies:
-      vite: 8.0.11(@types/node@22.18.0)(esbuild@0.25.9)(tsx@4.20.5)(yaml@2.8.4)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
 
   vite@5.4.19(@types/node@22.18.0)(lightningcss@1.32.0):
     dependencies:
