@@ -64,26 +64,26 @@
 		"stylelint": ">=16"
 	},
 	"dependencies": {
-		"@morev/utils": "^3.12.1"
+		"@morev/utils": "^3.15.0"
 	},
 	"devDependencies": {
 		"@morev/commitlint-config": "^0.2.2",
 		"@morev/eslint-config": "^41.0.0",
 		"@morev/stylelint-config": "^8.0.2",
 		"@release-it/conventional-changelog": "8.0.2",
-		"@shikijs/transformers": "^2.3.2",
+		"@shikijs/transformers": "^4.0.2",
 		"@types/node": "^22.13.4",
 		"eslint": "9.39.4",
-		"lefthook": "^1.10.10",
-		"postcss": "^8.5.2",
-		"release-it": "^18.1.2",
-		"stylelint": "^17.10.0",
+		"lefthook": "^2.1.6",
+		"postcss": "^8.5.14",
+		"release-it": "^20.0.1",
+		"stylelint": "^17.11.0",
 		"tsup": "^8.3.6",
-		"tsx": "^4.19.2",
+		"tsx": "^4.21.0",
 		"typescript": "^5.7.3",
 		"vite": "^8.0.11",
 		"vitepress": "^1.6.3",
 		"vitest": "^4.1.5",
-		"vue": "^3.5.13"
+		"vue": "^3.5.34"
 	}
 }
