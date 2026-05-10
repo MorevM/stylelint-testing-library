@@ -10,7 +10,7 @@ export default defineConfig({
 		codeTransformers: [
 			transformerRenderWhitespace({
 				position: 'boundary',
-			}),
+			}) as any, // vitepress itself uses v2.5.0 types
 		],
 	},
 	themeConfig: {

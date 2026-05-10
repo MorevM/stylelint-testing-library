@@ -13,7 +13,7 @@ export const messages = ruleMessages(ruleName, {
 	unexpected: (selector: string) => `Unexpected upper case characters in the "${selector}" selector`,
 });
 
-const ruleFunction = (primary, secondary) => {
+const ruleFunction: stylelint.Rule = (primary, secondary) => {
 	return (root, result) => {
 		const validOptions = validateOptions(result, ruleName, {
 			actual: primary,

@@ -35,6 +35,7 @@ describe('utils', () => {
 
 			it('Reads `plugins` from `factorySchema`, it takes precedence over `testUtilsSchema` if specified', () => {
 				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
 						testFunctions,
@@ -96,6 +97,7 @@ describe('utils', () => {
 		describe('customSyntax', () => {
 			it('Reads `customSyntax` from `testUtilsSchema`', () => {
 				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
 						testFunctions,
@@ -121,6 +123,7 @@ describe('utils', () => {
 
 			it('Reads `customSyntax` from `factorySchema`, it takes precedence over `testUtilsSchema` if specified', () => {
 				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
 						testFunctions,
@@ -146,6 +149,7 @@ describe('utils', () => {
 
 			it('`customSyntax` can be set as `undefined` from `factorySchema`', () => {
 				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
 						testFunctions,
@@ -171,6 +175,7 @@ describe('utils', () => {
 
 			it('Reads `customSyntax` from `testRuleSchema`, it takes precedence over `testUtilsSchema` and `factorySchema` if specified', () => {
 				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
 						testFunctions,
@@ -196,6 +201,7 @@ describe('utils', () => {
 
 			it('`customSyntax` can be set as `undefined` from `testRuleSchema`', () => {
 				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
 						testFunctions,
@@ -221,6 +227,7 @@ describe('utils', () => {
 
 			it('Reads `customSyntax` from a test case, it takes precedence over schemas if specified', () => {
 				const options = getStylelintOptions({ code: TEST_CODE, customSyntax: 'test' }, {
+					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
 						testFunctions,
@@ -246,6 +253,7 @@ describe('utils', () => {
 
 			it('`customSyntax` can be set as `undefined` within a test case', () => {
 				const options = getStylelintOptions({ code: TEST_CODE, customSyntax: undefined }, {
+					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
 						testFunctions,
