@@ -71,7 +71,7 @@
 		"@morev/commitlint-config": "^0.2.2",
 		"@morev/eslint-config": "^41.0.0",
 		"@morev/stylelint-config": "^8.0.2",
-		"@release-it/conventional-changelog": "8.0.2",
+		"@release-it/conventional-changelog": "11.0.0",
 		"@shikijs/transformers": "^4.0.2",
 		"@types/node": "^22.13.4",
 		"eslint": "9.39.4",
