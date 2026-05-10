@@ -35,7 +35,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Set Stylelint version
-        run: pnpm add --save-dev stylelint@^${{ matrix.stylelint }}
+        run: |
+          pnpm add -Dw stylelint@^${{ matrix.stylelint }}
+          pnpm -r --filter "./examples/*" add -D stylelint@^${{ matrix.stylelint }}
 
       - name: Build
         run: pnpm build
