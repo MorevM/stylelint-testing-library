@@ -1,5 +1,12 @@
 
 
+## [1.0.3](https://github.com/MorevM/stylelint-testing-library/compare/v1.0.2...v1.0.3) (2026-05-10)
+
+### Chores
+
+* **deps:** Allow `stylelint` versions 16+ ([#153](https://github.com/MorevM/stylelint-testing-library/issues/153)) ([dd3d19e](https://github.com/MorevM/stylelint-testing-library/commit/dd3d19ecdf45d4e534abb261fb0a24263ed2d486))
+
+
 ## [1.0.2](https://github.com/MorevM/stylelint-testing-library/compare/v1.0.1...v1.0.2) (2025-09-02)
 
 
