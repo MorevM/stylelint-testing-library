@@ -37,6 +37,9 @@ jobs:
       - name: Set Stylelint version
         run: pnpm add --save-dev stylelint@^${{ matrix.stylelint }}
 
+      - name: Typecheck
+        run: pnpm typecheck
+
       - name: Build
         run: pnpm build
 

@@ -18,6 +18,9 @@ jobs:
       - name: Setup environment
         uses: ./.github/actions/setup
 
+      - name: Typecheck
+        run: pnpm typecheck
+
       - name: Build
         run: pnpm build
 
