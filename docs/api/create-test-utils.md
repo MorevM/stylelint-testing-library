@@ -45,10 +45,8 @@ const { createTestRule, testRuleConfig } = createTestUtils({
 :::
 
 ::: info Info
-
 Passing functions for testing is optional. \
 If your test platform injects them into the global scope, the module will pick them on its own.
-
 :::
 
 ---
@@ -80,9 +78,9 @@ type testGroupWithoutDescriptionAppearance = 'group-index' | 'config' | 'line-in
 
 We have three options:
 
-* Use the group index *(default)*;
-* Use the stringified `config` property passed to the [`testRule`](/api/test-rule) utility;
-* Line number in the file where the [`testRule`](/api/test-rule) call is located *(experimental)*.
+- Use the group index *(default)*;
+- Use the stringified `config` property passed to the [`testRule`] utility;
+- Line number in the file where the [`testRule`] call is located *(experimental)*.
 
 The output of all of them is shown below:
 
@@ -93,7 +91,7 @@ A clean, minimalistic look that helps to quickly locate the right group of tests
 
 **Note**: this is a sequence number, not an index in the programming sense, so it starts with `1`.
 
-```bash
+```sh
 ✓ {rule-name}: group №1 (9) # [!code focus]
   ✓ accept (5)
     ✓ ...
@@ -118,7 +116,7 @@ The option exists to ensure that the project can be a drop-in replacement
 for an existing solutions for testing Stylelint plugins that did not provide
 the ability to set a description for a test group.
 
-```bash
+```sh
 ✓ {rule-name}: [ true ] (9) # [!code focus]
   ✓ accept (5)
     ✓ ...
@@ -134,7 +132,7 @@ the ability to set a description for a test group.
 :::
 
 
-::: details `error-line` *(experimental)*
+:::: details `error-line` *(experimental)*
 
 Using the `group-index` property is usually more convenient than `config`,
 but for existing codebases with a large number of tests it can still be quite painful
@@ -163,7 +161,7 @@ testRule({
 });
 ```
 
-```bash [Console output]
+```sh [Console output]
 ✓ {rule-name}: line 1 in the source file (9) # [!code focus]
   ✓ accept (5)
     ✓ ...
@@ -177,6 +175,8 @@ testRule({
 ```
 
 :::
+
+::::
 
 ### `testCaseWithoutDescriptionAppearance`
 
@@ -196,7 +196,7 @@ We have two options: use the test index or its code, the output of both is shown
 
 A clean, minimalistic look that helps to quickly locate the right test case.
 
-```bash
+```sh
 ✓ {rule-name}: group №1 (9)
   ✓ accept (2)
     ✓ Accept test case №1 # [!code focus]
@@ -219,7 +219,7 @@ The option exists to ensure that the project can be a drop-in replacement
 for an existing solutions for testing Stylelint plugins that did not provide
 the ability to set a description for a test cases.
 
-```bash
+```sh
 ✓ {rule-name}: group №1 (9)
   ✓ accept (2)
     ✓ '.the-component {}' # [!code focus]
@@ -237,3 +237,5 @@ the ability to set a description for a test cases.
 ::: info Note
 You can always redefine this global setting for a group of tests or a single test.
 :::
+
+[`testRule`]: /api/test-rule

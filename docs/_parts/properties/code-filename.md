@@ -3,8 +3,8 @@
 Maps to Stylelint's `codeFilename` option. \
 Useful if your rule is supposed to work differently depending on the file name/path, for example:
 
-1) Has different logic depending on the file extension (`.css` or `.scss` for example);
-1) Should only work on files whose path matches a certain pattern.
+1. Has different logic depending on the file extension (`.css` or `.scss` for example);
+1. Should only work on files whose path matches a certain pattern.
 
 <!-- #endregion description -->
 

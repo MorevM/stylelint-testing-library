@@ -45,5 +45,7 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 **Required** if `plugins` is not specified when declaring `createTestUtils`.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/plugins.md#description -->
+
 :::

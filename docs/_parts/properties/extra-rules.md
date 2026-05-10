@@ -1,6 +1,8 @@
 <!-- #region description -->
+
 Object in form compatible with [Stylelint's `rules` property](https://stylelint.io/user-guide/configure/#rules),
 that allows to run `stylelint` with extra rules in addition to the one being tested.
+
 <!-- #endregion description -->
 
 ```ts

@@ -1,7 +1,9 @@
 <!-- #region description -->
+
 Maps to [Stylelint's `plugins`](https://stylelint.io/user-guide/configure/#plugins) configuration property, has the same signature. \
 Expected either the path to the JS file that provides your rule, or its contents,
 or an array of such elements in the case you are testing a plugin pack.
+
 <!-- #endregion description -->
 
 Minimal example:

@@ -46,7 +46,9 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 **Required** if `plugins` is not specified when declaring `createTestUtils`.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/plugins.md#description -->
+
 :::
 
 ### `extraRules`
@@ -55,7 +57,9 @@ The same option as described in [`createTestUtils > Options > extraRules`](/api/
 but, if specified, appended to these rules.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/extra-rules.md#description -->
+
 :::
 
 ### `customSyntax`
@@ -64,7 +68,9 @@ The same option as described in [`createTestUtils > Options > customSyntax`](/ap
 but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/custom-syntax.md#description -->
+
 :::
 
 ### `autoStripIndent`
@@ -73,4 +79,7 @@ The same option as described in [`createTestUtils > Options > autoStripIndent`](
 but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/auto-strip-indent.md -->
+
+:::

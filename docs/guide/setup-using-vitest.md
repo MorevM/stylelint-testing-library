@@ -18,7 +18,7 @@ check out the `API Reference` section or inspect all the options inline using ed
 
 Create a `vitest` setup file with the following content:
 
-:::code-group
+::: code-group
 
 ```ts [vitest.setup.ts]
 // 1. Import testing functions
@@ -102,7 +102,7 @@ export default [
 
 Next, specify the path to it in the `vitest` configuration file as [`setupFiles`](https://vitest.dev/config/#setupfiles) option:
 
-:::code-group
+::: code-group
 
 ```ts {5} [vitest.config.ts]
 import { defineConfig } from 'vitest/config';

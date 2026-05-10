@@ -56,9 +56,11 @@ The option only exists to ensure that the project can be a drop-in replacement f
 :::
 
 ::: details Show original description
+
 The name of the rule that is being tested.
 
 Used for output in the console, and for binding the `config` property of the `testRuleConfig` function to a rule from the plugins list.
+
 :::
 
 ### `plugins`
@@ -72,7 +74,9 @@ The option only exists to ensure that the project can be a drop-in replacement f
 :::
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/rule-name.md#description -->
+
 :::
 
 
@@ -156,12 +160,13 @@ testRuleConfig({
 
 There are two types of tests:
 
-* `accept` (code which Stylelint should not complain about);
-* `reject` (code where a Stylelint error is expected).
+- `accept` (code which Stylelint should not complain about);
+- `reject` (code where a Stylelint error is expected).
 
 They are located in the `accept` and `reject` keys of the `testRuleConfig()` options respectively.
 
-Each group of tests described by the `testRuleConfig()` function must contain at least one test - no matter whether it is accepted or rejected.
+Each group of tests described by the `testRuleConfig()` function must contain at least one test -
+no matter whether it is accepted or rejected.
 
 Both the accepted test case and the rejected one have the same set of properties described below:
 
@@ -204,7 +209,8 @@ export default {
 
 A test can have a description - it is displayed in the console and makes it easier to find the test if necessary. \
 If no description is provided, then instead of description will be displayed either the test sequence number (by default)
-or its `config`, depending on the [`testCaseWithoutDescriptionAppearance` option](/api/create-test-utils#testcasewithoutdescriptionappearance).
+or its `config`, depending
+on the [`testCaseWithoutDescriptionAppearance` option](/api/create-test-utils#testcasewithoutdescriptionappearance).
 
 ::: code-group
 

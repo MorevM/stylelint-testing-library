@@ -10,10 +10,8 @@ in the repository [here](https://github.com/morevm/stylelint-testing-library/tre
 :::
 
 ::: info Author's Note
-
 If you are starting a new project - first consider using `vite` as a test-runner. \
 In most scenarios it is faster, easier to configure and has better documentation.
-
 :::
 
 ::: warning Note
@@ -63,7 +61,7 @@ pnpm add -D ts-jest ts-node @types/jest
 
 Next, create a `jest` config file with the following content (at least):
 
-:::code-group
+::: code-group
 
 ```ts [jest.config.ts]
 import type { JestConfigWithTsJest } from 'ts-jest';
@@ -168,7 +166,7 @@ testRuleConfig({ /* ... */ });
 testRule({ /* ... */ });
 ```
 
-::: code-group
+:::
 
 ---
 

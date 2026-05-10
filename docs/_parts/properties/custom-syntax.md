@@ -1,5 +1,7 @@
 <!-- #region description -->
+
 Maps to [Stylelint's `customSyntax`](https://stylelint.io/user-guide/configure/#customsyntax) configuration property, has the same signature.
+
 <!-- #endregion description -->
 
 Can be configured for separate groups of tests, but if your plugin works exclusively with a single syntax (e.g. SCSS),

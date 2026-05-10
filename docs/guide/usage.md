@@ -1,7 +1,6 @@
 # Usage
 
 ::: warning Important
-
 Keep in mind that what is demonstrated on this page is a very simple use case -
 the project allows you to flexibly customize many parts of it, which can improve your DX.
 
@@ -12,10 +11,10 @@ detailed JSDoc's are written for all functions.
 For a real-world example of this library in use,
 explore [@morev/stylelint-plugin](https://github.com/MorevM/stylelint-plugin),
 a Stylelint plugin enforcing BEM and (S)CSS best practices.
-
 :::
 
-Install the package and configure your test runner to work with it using the instructions in the [`Installation`](/guide/installation) section.
+Install the package and configure your test runner to work with it using
+the instructions in the [`Installation`](/guide/installation) section.
 
 ::: info Note
 Here it is assumed that the steps described on the [`Setup using Vitest`](/guide/setup-using-vitest) page have been followed,
@@ -27,6 +26,7 @@ Next, create the test file and setup the tests:
 ::: details Environment for understanding the following example
 
 ---
+
 **Testing platform setup:**
 
 It is assumed that you have declared the `createTestRule` and `createTestRuleConfig` functions
@@ -52,6 +52,7 @@ and has a fixer that changes the selector to lower case format (e.g. `.FOO {}` b
 and does this with all selectors that do not match the `ignore` values from the secondary options.
 
 E.g. with a configuration `[true, { ignore: '.FOO' }]` the rule transforms `.FOO {} .BAR {}` into `.FOO {} .bar {}`
+
 :::
 
 ::: code-group

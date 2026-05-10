@@ -50,7 +50,9 @@ The option only exists to ensure that the project can be a drop-in replacement f
 :::
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/rule-name.md -->
+
 :::
 
 ### `plugins`
@@ -64,7 +66,9 @@ The option only exists to ensure that the project can be a drop-in replacement f
 :::
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/rule-name.md#description -->
+
 :::
 
 ### `extraRules`
@@ -73,7 +77,9 @@ The same option as described in [`createTestUtils > Options > extraRules`](/api/
 but, if specified, appended to these rules.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/extra-rules.md#description -->
+
 :::
 
 ### `description`
@@ -148,7 +154,9 @@ and [`createTestRule > Options > customSyntax`](/api/create-test-rule#customsynt
 but takes precedence over them if specified, allowing to overwrite the defaults for a particular set.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/custom-syntax.md#description -->
+
 :::
 
 ### `accept` & `reject`
@@ -183,18 +191,21 @@ testRule({
 
 ### `autoStripIndent`
 
-The same option as described in [`createTestUtils > Options > autoStripIndent`](/api/create-test-utils#autostripindent)
+The same option as described in [`createTestUtils > Options > autoStripIndent`]
 but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
 
-::: details Show original description
+:::: details Show original description
+
 <!-- @include: @/_parts/properties/auto-strip-indent.md -->
+
+::::
 
 ## Test cases
 
 There are two types of tests:
 
-* `accept` (code which Stylelint should not complain about);
-* `reject` (code where a Stylelint error is expected).
+- `accept` (code which Stylelint should not complain about);
+- `reject` (code where a Stylelint error is expected).
 
 They are located in the `accept` and `reject` keys of the `testRule()` options respectively.
 
@@ -207,10 +218,11 @@ Its properties described below:
 
 #### `code`
 
-Each test must necessarily have a `code` property, which is the string that is validated by Stylelint. A test without `code` just doesn't make sense.
+Each test must necessarily have a `code` property, which is the string that is validated by Stylelint.
+A test without `code` just doesn't make sense.
 
 You can automatically remove indentation in the case of multi-line input
-using the [`autoStripIndent` option](/api/create-test-utils#autostripindent).
+using the [`autoStripIndent` option][`createTestUtils > Options > autoStripIndent`].
 
 ```ts
 testRule({
@@ -264,7 +276,9 @@ The same option as described in [`codeFilename`](#codefilename) above
 but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/code-filename.md#description -->
+
 :::
 
 #### `customSyntax`
@@ -273,7 +287,9 @@ The same option as described in [`customSyntax`](#customsyntax) above
 but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
 
 ::: details Show original description
+
 <!-- @include: @/_parts/properties/custom-syntax.md#description -->
+
 :::
 
 #### `autoStripIndent`
@@ -281,8 +297,11 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 The same option as described in [`autoStripIndent`](#autostripindent) above
 but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
 
-::: details Show original description
+:::: details Show original description
+
 <!-- @include: @/_parts/properties/auto-strip-indent.md#description -->
+
+::::
 
 #### `skip` & `only` flags
 
@@ -399,3 +418,5 @@ testRule({ // [!code focus]
 });
 
 ```
+
+[`createTestUtils > Options > autoStripIndent`]: /api/create-test-utils#autostripindent

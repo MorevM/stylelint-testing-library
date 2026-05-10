@@ -6,6 +6,6 @@ export type InternalSetupOptions = InternalTestRuleSchema & {
 	cases: TestCase[];
 	comparisons: (
 		testCase: AcceptedTestCase | RejectedTestCase,
-		caseIndex: number
+		caseIndex: number,
 	) => () => Promise<void>;
 };

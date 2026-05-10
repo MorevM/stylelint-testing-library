@@ -14,19 +14,19 @@ Let's pretend we have the following sample code and we expect to see an error hi
 
 <div class="highlight-spaces-inside">
 
-  ```ts
-  {
-    description: 'Side-effect within `@media`-query on the root level',
-    code: `
-      .the-component {}
+```ts
+{
+  description: 'Side-effect within `@media`-query on the root level',
+  code: `
+    .the-component {}
 
-      @media (max-width: 320px) {
-        .another-component {}
-      }
-    `,
-  }
+    @media (max-width: 320px) {
+      .another-component {}
+    }
+  `,
+}
 
-  ```
+```
 
 </div>
 
@@ -37,15 +37,15 @@ This is because the input is a string that contains all linebreaks and indentati
 
 <div class="highlight-spaces-inside">
 
-  ```text
-  `
-        .the-component {}
+```text
+`
+      .the-component {}
 
-        @media (max-width: 320px) {
-          .another-component {}
-        }
-      `
-  ```
+      @media (max-width: 320px) {
+        .another-component {}
+      }
+    `
+```
 
 </div>
 
@@ -57,13 +57,13 @@ as well as the extra indentation, so the string becomes exactly what we would se
 
 <div class="highlight-spaces-inside">
 
-  ```text
-  .the-component {}
+```text
+.the-component {}
 
-  @media (max-width: 320px) {
-    .another-component {}
-  }
-  ```
+@media (max-width: 320px) {
+  .another-component {}
+}
+```
 
 </div>
 

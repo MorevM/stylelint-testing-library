@@ -126,5 +126,5 @@ export const createTestRuleConfig = (
 	testRuleTemplate.only = (testRuleConfigSchema: TestRuleConfigSchema) =>
 		bind({ ...testRuleConfigSchema, only: true });
 
-	return testRuleTemplate as unknown as TestRuleConfig;
+	return testRuleTemplate;
 };

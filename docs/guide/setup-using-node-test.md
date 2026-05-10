@@ -10,14 +10,12 @@ in the repository [here](https://github.com/morevm/stylelint-testing-library/tre
 :::
 
 ::: info Author's Note
-
 Running tests written with TypeScript using a native test runner is a bit of an adventure,
 and here we describe a use case with JavaScript.
 
 DX of an error output also leaves a lot to be desired compared to other platforms,
 but the obvious advantage of `node:test` is the lack of third-party dependencies,
 if that's important to you.
-
 :::
 
 ::: warning Note
@@ -27,7 +25,7 @@ check out the `API Reference` section or inspect all the options inline using ed
 
 Create a `node.test.setup.js` file with the following content:
 
-:::code-group
+::: code-group
 
 ```ts [node.test.setup.js]
 // 1. Import testing functions
@@ -91,7 +89,7 @@ export default [
 
 Specify the types for these global functions if you need to (strongly recommended):
 
-:::code-group
+::: code-group
 
 ```ts [global.d.ts]
 import type { CreateTestRule, CreateTestRuleConfig } from '@morev/stylelint-testing-library';
