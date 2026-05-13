@@ -55,6 +55,8 @@ The option only exists to ensure that the project can be a drop-in replacement f
 
 :::
 
+---
+
 ### `plugins`
 
 The same option as described in [`createTestUtils > Options > plugins`](/api/create-test-utils#plugins)
@@ -71,6 +73,8 @@ The option only exists to ensure that the project can be a drop-in replacement f
 
 :::
 
+---
+
 ### `extraRules`
 
 The same option as described in [`createTestUtils > Options > extraRules`](/api/create-test-utils#extrarules)
@@ -81,6 +85,8 @@ but, if specified, appended to these rules.
 <!-- @include: @/_parts/properties/extra-rules.md#description -->
 
 :::
+
+---
 
 ### `description`
 
@@ -108,6 +114,8 @@ testRule({
 ```
 
 :::
+
+---
 
 ### `config`
 
@@ -143,9 +151,13 @@ stylelint.lint({
 
 :::
 
+---
+
 ### `codeFilename`
 
 <!-- @include: @/_parts/properties/code-filename.md -->
+
+---
 
 ### `customSyntax`
 
@@ -159,10 +171,14 @@ but takes precedence over them if specified, allowing to overwrite the defaults 
 
 :::
 
+---
+
 ### `accept` & `reject`
 
 An array of tests that should pass without warnings from Stylelint or where an error is expected, respectively. \
 See more info about test cases in [Test cases](#test-cases) section below.
+
+---
 
 ### `skip` & `only`
 
@@ -188,6 +204,7 @@ testRule({
 });
 ```
 
+---
 
 ### `autoStripIndent`
 
@@ -197,6 +214,19 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 :::: details Show original description
 
 <!-- @include: @/_parts/properties/auto-strip-indent.md -->
+
+::::
+
+---
+
+### `contextNewlineFallback`
+
+The same option as described in [`createTestUtils > Options > contextNewlineFallback`](/api/create-test-utils#contextnewlinefallback)
+but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+
+:::: details Show original description
+
+<!-- @include: @/_parts/properties/context-newline-fallback.md -->
 
 ::::
 
@@ -300,6 +330,17 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 :::: details Show original description
 
 <!-- @include: @/_parts/properties/auto-strip-indent.md#description -->
+
+::::
+
+#### `contextNewlineFallback`
+
+The same option as described in [`contextNewlineFallback`](#contextnewlinefallback) above
+but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+
+:::: details Show original description
+
+<!-- @include: @/_parts/properties/context-newline-fallback.md -->
 
 ::::
 

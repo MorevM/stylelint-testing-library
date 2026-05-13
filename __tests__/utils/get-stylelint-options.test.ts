@@ -1,9 +1,54 @@
-import { assert, describe, expect, it } from 'vitest';
+import { assert, describe, expect, it, vi } from 'vitest';
+import { isString } from '@morev/utils';
 import { createUniversalMappings, getStylelintOptions } from '#utils';
+import type { Plugin, Rule, RuleContext } from 'stylelint';
+
+type RulePlugin = Extract<Plugin, { rule: Rule; ruleName: string }>;
 
 const testFunctions = { describe, it, assert };
 const universal = createUniversalMappings(testFunctions);
 const TEST_CODE = 'a {}';
+
+const createPlugin = () => {
+	let capturedContext: RuleContext | undefined;
+	const ruleName = 'plugin/foo';
+
+	const rule = vi.fn((primary, secondaryOptions, context: RuleContext) => {
+		capturedContext = context;
+		return () => ({ primary, secondaryOptions, context });
+	}) as unknown as Rule;
+
+	rule.ruleName = ruleName;
+	rule.messages = {};
+	rule.meta = { fixable: true, url: '' };
+
+	const plugin: Plugin = { ruleName, rule };
+
+	return {
+		plugin,
+		rule,
+		getCapturedContext: () => capturedContext,
+	};
+};
+
+const getFirstPlugin = (options: ReturnType<typeof getStylelintOptions>) => {
+	const { plugins } = options.config;
+
+	return Array.isArray(plugins)
+		? plugins[0]
+		: plugins;
+};
+
+const expectRulePlugin = (plugin: Plugin | string | undefined): RulePlugin => {
+	expect(plugin).toBeDefined();
+	expect(typeof plugin).not.toBe('string');
+
+	if (!plugin || isString(plugin) || !('rule' in plugin)) {
+		throw new TypeError('Expected plugin object with direct `rule` property');
+	}
+
+	return plugin;
+};
 
 describe('utils', () => {
 	describe('get-stylelint-options', () => {
@@ -90,6 +135,103 @@ describe('utils', () => {
 					},
 					customSyntax: undefined,
 					codeFilename: undefined,
+				});
+			});
+		});
+
+		describe('contextNewlineFallback', () => {
+			it('Wraps object plugins when `contextNewlineFallback` is set and code has no linebreaks', () => {
+				const { plugin, rule, getCapturedContext } = createPlugin();
+				const options = getStylelintOptions({ code: TEST_CODE, contextNewlineFallback: 'lf' }, {
+					universal,
+					groupIndex: 1,
+					testUtilsSchema: {
+						testFunctions,
+						plugins: [plugin],
+					},
+					testRuleSchema: { config: true, accept: [] },
+					factorySchema: { ruleName: 'foo' },
+				});
+
+				const wrappedPlugin = expectRulePlugin(getFirstPlugin(options));
+				const context = { fix: true };
+
+				expect(wrappedPlugin).not.toBe(plugin);
+				expect(wrappedPlugin.rule).not.toBe(rule);
+				expect(wrappedPlugin.rule.ruleName).toBe(rule.ruleName);
+				expect(wrappedPlugin.rule.messages).toBe(rule.messages);
+				expect('newline' in context).toBe(false);
+
+				wrappedPlugin.rule(true, undefined, context);
+
+				expect(getCapturedContext()).toMatchObject({
+					fix: true,
+					newline: '\n',
+				});
+				expect(getCapturedContext()).not.toBe(context);
+				expect('newline' in context).toBe(false);
+			});
+
+			it('Does not wrap object plugins when code already contains linebreaks', () => {
+				const { plugin, rule } = createPlugin();
+				const options = getStylelintOptions({ code: 'a {\n}', contextNewlineFallback: 'crlf' }, {
+					universal,
+					groupIndex: 1,
+					testUtilsSchema: {
+						testFunctions,
+						plugins: [plugin],
+					},
+					testRuleSchema: { config: true, accept: [] },
+					factorySchema: { ruleName: 'foo' },
+				});
+
+				const actualPlugin = expectRulePlugin(getFirstPlugin(options));
+
+				expect(actualPlugin).toBe(plugin);
+				expect(actualPlugin.rule).toBe(rule);
+			});
+
+			it('Does not wrap string plugins even when `contextNewlineFallback` is set', () => {
+				const options = getStylelintOptions({ code: TEST_CODE, contextNewlineFallback: 'crlf' }, {
+					universal,
+					groupIndex: 1,
+					testUtilsSchema: {
+						testFunctions,
+						plugins: ['./plugin.js'],
+					},
+					testRuleSchema: { config: true, accept: [] },
+					factorySchema: { ruleName: 'foo' },
+				});
+
+				expect(options.config?.plugins).toStrictEqual(['./plugin.js']);
+			});
+
+			it('Uses test-case fallback with higher priority than schema fallbacks', () => {
+				const { plugin, getCapturedContext } = createPlugin();
+				const options = getStylelintOptions({ code: TEST_CODE, contextNewlineFallback: 'crlf' }, {
+					universal,
+					groupIndex: 1,
+					testUtilsSchema: {
+						testFunctions,
+						plugins: [plugin],
+						contextNewlineFallback: 'lf',
+					},
+					testRuleSchema: {
+						config: true,
+						accept: [],
+						contextNewlineFallback: 'lf',
+					},
+					factorySchema: {
+						ruleName: 'foo',
+						contextNewlineFallback: 'lf',
+					},
+				});
+
+				const wrappedPlugin = expectRulePlugin(getFirstPlugin(options));
+				wrappedPlugin.rule(true, undefined, {});
+
+				expect(getCapturedContext()).toMatchObject({
+					newline: '\r\n',
 				});
 			});
 		});

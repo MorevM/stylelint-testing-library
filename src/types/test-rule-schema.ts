@@ -71,6 +71,16 @@ export type TestRuleSchema = {
 	autoStripIndent?: boolean;
 
 	/**
+	 * Controls the fallback value of `context.newline`
+	 * when the input source contains no linebreaks.
+	 *
+	 * @see https://github.com/stylelint/stylelint/issues/9281
+	 *
+	 * @default 'system'
+	 */
+	contextNewlineFallback?: 'system' | 'lf' | 'crlf';
+
+	/**
 	 * Extra rules to apply.
 	 *
 	 * @default {}

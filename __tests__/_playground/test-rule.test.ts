@@ -1,3 +1,4 @@
+import { EOL } from 'node:os';
 import { createTestUtils } from '#';
 import { messages, plugin, ruleName } from '../fixtures/plugin-foo';
 
@@ -93,6 +94,46 @@ testRule({
 			code: '#a {}',
 			codeFilename: 'bar.css',
 			message: messages.expectFilename('foo.css', 'bar.css'),
+		},
+	],
+});
+
+
+testRule({
+	config: ['.a', { prependNewline: true }],
+
+	reject: [
+		{
+			description: 'preserves CRLF if explicitly defined',
+			code: '.a {\r\n}',
+			fixed: '\r\n.a {\r\n}',
+			message: messages.expectNewline('.a'),
+		},
+		{
+			description: 'preserves LF if explicitly defined',
+			code: '.a {\n}',
+			fixed: '\n.a {\n}',
+			message: messages.expectNewline('.a'),
+		},
+		{
+			description: 'falls back to system EOL by default',
+			code: '.a {}',
+			fixed: `${EOL}.a {}`,
+			message: messages.expectNewline('.a'),
+		},
+		{
+			description: 'falls back to CRLF if defined',
+			code: '.a {}',
+			fixed: `\r\n.a {}`,
+			contextNewlineFallback: 'crlf',
+			message: messages.expectNewline('.a'),
+		},
+		{
+			description: 'falls back to LF if defined',
+			code: '.a {}',
+			fixed: `\n.a {}`,
+			contextNewlineFallback: 'lf',
+			message: messages.expectNewline('.a'),
 		},
 	],
 });

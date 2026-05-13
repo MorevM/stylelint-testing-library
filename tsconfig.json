@@ -15,7 +15,7 @@
 		"paths": {
 			"#": ["./src/index.ts"],
 			"#lib": ["./src/lib/index.ts"],
-			"#utils": ["./src/utils.ts"],
+			"#utils": ["./src/utils/index.ts"],
 			"#types": ["./src/types/index.ts"],
 			"#types/internal": ["./src/types/internal/index.ts"],
 		},
