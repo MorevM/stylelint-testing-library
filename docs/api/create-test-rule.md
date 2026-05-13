@@ -38,6 +38,8 @@ All others are optional, but can improve your DX.
 
 <!-- @include: @/_parts/properties/rule-name.md -->
 
+---
+
 ### `plugins`
 
 The same option as described in [`createTestUtils > Options > plugins`](/api/create-test-utils#plugins)
@@ -45,41 +47,60 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 
 **Required** if `plugins` is not specified when declaring `createTestUtils`.
 
-::: details Show original description
+:::: details Show original description
 
 <!-- @include: @/_parts/properties/plugins.md#description -->
 
-:::
+::::
+
+---
 
 ### `extraRules`
 
 The same option as described in [`createTestUtils > Options > extraRules`](/api/create-test-utils#extrarules)
 but, if specified, appended to these rules.
 
-::: details Show original description
+:::: details Show original description
 
 <!-- @include: @/_parts/properties/extra-rules.md#description -->
 
-:::
+::::
+
+---
 
 ### `customSyntax`
 
 The same option as described in [`createTestUtils > Options > customSyntax`](/api/create-test-utils#customsyntax)
 but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
 
-::: details Show original description
+:::: details Show original description
 
 <!-- @include: @/_parts/properties/custom-syntax.md#description -->
 
-:::
+::::
+
+---
 
 ### `autoStripIndent`
 
 The same option as described in [`createTestUtils > Options > autoStripIndent`](/api/create-test-utils#autostripindent)
 but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
 
-::: details Show original description
+:::: details Show original description
 
 <!-- @include: @/_parts/properties/auto-strip-indent.md -->
 
-:::
+::::
+
+---
+
+### `contextNewlineFallback`
+
+The same option as described in [`createTestUtils > Options > contextNewlineFallback`](/api/create-test-utils#contextnewlinefallback)
+but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+
+:::: details Show original description
+
+<!-- @include: @/_parts/properties/context-newline-fallback.md -->
+
+::::

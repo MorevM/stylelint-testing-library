@@ -51,18 +51,23 @@ If your test platform injects them into the global scope, the module will pick t
 
 ---
 
-
 ### `plugins`
 
 <!-- @include: @/_parts/properties/plugins.md -->
+
+---
 
 ### `extraRules`
 
 <!-- @include: @/_parts/properties/extra-rules.md -->
 
+---
+
 ### `customSyntax`
 
 <!-- @include: @/_parts/properties/custom-syntax.md -->
+
+---
 
 ### `testGroupWithoutDescriptionAppearance`
 
@@ -178,6 +183,8 @@ testRule({
 
 ::::
 
+---
+
 ### `testCaseWithoutDescriptionAppearance`
 
 The option controls how test cases are displayed in the console output if they do not have a description.
@@ -230,6 +237,8 @@ the ability to set a description for a test cases.
 
 :::
 
+---
+
 ### `autoStripIndent`
 
 <!-- @include: @/_parts/properties/auto-strip-indent.md -->
@@ -237,5 +246,11 @@ the ability to set a description for a test cases.
 ::: info Note
 You can always redefine this global setting for a group of tests or a single test.
 :::
+
+---
+
+### `contextNewlineFallback`
+
+<!-- @include: @/_parts/properties/context-newline-fallback.md -->
 
 [`testRule`]: /api/test-rule
