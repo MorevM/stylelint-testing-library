@@ -1,43 +1,6 @@
-import { isString, isUndefined, toNumber, tsObject } from '@morev/utils';
-import stylelint from 'stylelint';
+import { tsObject } from '@morev/utils';
 import type { PlainObject } from '@morev/utils';
-import type { LinterOptions, LinterResult } from 'stylelint';
-import type { CreateTestUtilsSchema, TestCase, TestFunctions } from '#types';
-import type { InternalTestRuleSchema } from '#types/internal';
-
-/**
- * Gets the resulting CSS string from the `linterOutput`,
- * checking for necessary parts in the process.
- *
- * @param   linterOutput   Stylelint output.
- *
- * @returns                Resulting CSS string of the Stylelint output
- *                         or `null` in case of an error.
- */
-const getOutputCss = (linterOutput: LinterResult) => {
-	const { results } = linterOutput;
-	const { _postcssResult: result } = results[0];
-
-	if (result?.root && result?.opts) {
-		return result.root.toString(result.opts.syntax);
-	}
-
-	return null;
-};
-
-/**
- * Clears the object of keys that have the value `undefined`.
- *
- * @param   source   The source object.
- *
- * @returns          A new object without keys that was declared as `undefined` in the source object.
- */
-export const omitUndefinedValues = (source: PlainObject<unknown>) => {
-	return tsObject.fromEntries(
-		tsObject.entries(source)
-			.filter(([key, value]) => !isUndefined(value)),
-	);
-};
+import type { CreateTestUtilsSchema, TestFunctions } from '#types';
 
 /**
  * Conditionally applies `skip` or `only` modifier to the base `it` or `describe` function.
@@ -58,80 +21,6 @@ export const applyModifiers = <T extends Exclude<TestFunctions['describe'], unde
 		: modifiers.skip
 			? baseEntity.skip as T
 			: baseEntity;
-};
-
-/**
- * Gets options to pass into `stylelint.lint()` method
- * considering test case and schema options.
- *
- * @param   testCase   A test case.
- * @param   schema     A test schema.
- *
- * @returns            Options ready to pass into `stylelint.lint()` method.
- */
-export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRuleSchema): LinterOptions => {
-	const { testRuleSchema, factorySchema, testUtilsSchema } = schema;
-	const plugins = testRuleSchema.plugins ?? factorySchema.plugins ?? testUtilsSchema.plugins;
-	const ruleName = testRuleSchema.ruleName ?? factorySchema.ruleName;
-
-	return {
-		code: testCase.code,
-		config: {
-			plugins,
-			rules: {
-				[ruleName]: testRuleSchema.config,
-				...testUtilsSchema.extraRules,
-				...factorySchema.extraRules,
-				...testRuleSchema.extraRules,
-			},
-		},
-		customSyntax: (() => {
-			if ('customSyntax' in testCase) return testCase.customSyntax;
-			if ('customSyntax' in testRuleSchema) return testRuleSchema.customSyntax;
-			if ('customSyntax' in factorySchema) return factorySchema.customSyntax;
-			return testUtilsSchema.customSyntax;
-		})(),
-		codeFilename: (() => {
-			if ('codeFilename' in testCase) return testCase.codeFilename;
-			if ('codeFilename' in testRuleSchema) return testRuleSchema.codeFilename;
-		})(),
-	};
-};
-
-/**
- * Runs `stylelint.lint` method with specified options.
- *
- * @param   options   Stylelint options.
- *
- * @returns           An object containing linter output and its extracted result.
- */
-export const lintWithOptions = async (options: LinterOptions) => {
-	const output = await stylelint.lint(options);
-	const { results: [result] } = output;
-	const outputCss = getOutputCss(output);
-
-	return { output, result, outputCss };
-};
-
-/**
- * Retrieves (from a stack trace) the line number of the call
- * that follows the call with the specified function.
- *
- * @param   previousCallFunctionName   The name of the function that precedes the desired output.
- *
- * @returns                            Number of the line or `null` in case it could not be determined.
- */
-export const fetchErrorLine = (previousCallFunctionName: string) => {
-	try {
-		throw new Error('error-to-catch-the-line');
-	} catch (error: any) {
-		if (!error.stack || !isString(error.stack)) return null;
-		const stack = error.stack.split('\n');
-		const errorFileLineIndex = stack
-			.findIndex((item: string) => item.includes(previousCallFunctionName)) + 1;
-
-		return toNumber(stack[errorFileLineIndex]?.match(/(\d+):\d+$/)?.[1], null);
-	}
 };
 
 /**
