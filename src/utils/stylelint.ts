@@ -58,7 +58,7 @@ export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRule
 			if ('codeFilename' in testCase) return testCase.codeFilename;
 			if ('codeFilename' in testRuleSchema) return testRuleSchema.codeFilename;
 		})(),
-	};
+	} satisfies LinterOptions;
 };
 
 /**
