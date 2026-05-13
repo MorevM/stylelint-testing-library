@@ -1,6 +1,6 @@
 /* eslint-disable import-x/exports-last */
 import { basename } from 'node:path';
-import { isString } from '@morev/utils';
+import { isBoolean, isString } from '@morev/utils';
 import stylelint from 'stylelint';
 import type { Rule } from 'stylelint';
 
@@ -14,9 +14,10 @@ export const ruleName = 'plugin/foo';
 export const messages = ruleMessages(ruleName, {
 	rejected: (selector) => `No \`${selector.toString()}\` selector`,
 	expectFilename: (expected, actual) => `Expect \`${actual.toString()}\` to be \`${expected.toString()}\``,
+	expectNewline: (selector) => `Expect to start with a newline in the \`${selector.toString()}\` selector`,
 });
 
-const ruleFunction: Rule = (primary, secondaryOptions) => {
+const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 	return (root, result) => {
 		const validOptions = validateOptions(result, ruleName, {
 			actual: primary,
@@ -25,6 +26,7 @@ const ruleFunction: Rule = (primary, secondaryOptions) => {
 			actual: secondaryOptions,
 			possible: {
 				filename: [isString],
+				prependNewline: [isBoolean],
 			},
 			optional: true,
 		});
@@ -44,6 +46,19 @@ const ruleFunction: Rule = (primary, secondaryOptions) => {
 
 			return;
 		}
+
+		secondaryOptions?.prependNewline && root.walkRules((rule) => {
+			report({
+				result,
+				ruleName,
+				message: messages.expectNewline(rule.selector),
+				node: rule,
+				word: rule.selector,
+				fix: () => {
+					rule.raws.before = (context.newline ?? '') + (rule.raws.before ?? '');
+				},
+			});
+		});
 
 		root.walkRules((rule) => {
 			const { selector } = rule;
