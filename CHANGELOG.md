@@ -1,5 +1,12 @@
 
 
+## [1.1.0](https://github.com/MorevM/stylelint-testing-library/compare/v1.0.3...v1.1.0) (2026-05-13)
+
+### Features
+
+* Add `contextNewlineFallback` setting ([#166](https://github.com/MorevM/stylelint-testing-library/issues/166)) ([89c44c1](https://github.com/MorevM/stylelint-testing-library/commit/89c44c13ab8528a3ed53e8d3c205c40a7cdd1662)) to allow platform-independent tests that rely on Stylint's `context.newline`.
+
+
 ## [1.0.3](https://github.com/MorevM/stylelint-testing-library/compare/v1.0.2...v1.0.3) (2026-05-10)
 
 ### Chores
