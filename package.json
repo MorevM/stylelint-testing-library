@@ -80,7 +80,7 @@
 		"release-it": "^20.0.1",
 		"stylelint": "^17.11.0",
 		"tsdown": "^0.22.0",
-		"tsx": "^4.21.0",
+		"tsx": "^4.22.0",
 		"typescript": "^6.0.3",
 		"vite": "^8.0.11",
 		"vitepress": "^1.6.3",
