@@ -72,7 +72,7 @@
 		"@morev/eslint-config": "^41.0.0",
 		"@morev/stylelint-config": "^8.0.2",
 		"@release-it/conventional-changelog": "8.0.2",
-		"@shikijs/transformers": "^4.0.2",
+		"@shikijs/transformers": "^4.3.1",
 		"@types/node": "^22.13.4",
 		"eslint": "9.39.4",
 		"lefthook": "^2.1.6",
