@@ -77,7 +77,7 @@
 		"eslint": "9.39.4",
 		"lefthook": "^2.1.6",
 		"postcss": "^8.5.14",
-		"release-it": "^20.0.1",
+		"release-it": "^21.0.1",
 		"stylelint": "^17.11.0",
 		"tsdown": "^0.22.0",
 		"tsx": "^4.21.0",
