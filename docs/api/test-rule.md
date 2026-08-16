@@ -435,6 +435,17 @@ testRule({
 });
 ```
 
+Alongside the output itself, the property pins what the fixer leaves behind: the
+code is linted once more in report mode, and whatever it still reports has to be
+exactly what the fixing run reported.
+
+A problem the rule reports without a fixer therefore passes — it is expected to
+survive, and it does, on both sides of that comparison. A problem reported *with*
+a fixer that repairs nothing does not: Stylelint discards whatever a fixer returns
+and counts it as applied, so the fixing run ends clean while the code is still
+broken. Such a rule should decide before calling `report` and pass no fixer at all
+for the cases it cannot repair.
+
 ### Additional features
 
 The function can be called using its own `skip` and `only` methods to make

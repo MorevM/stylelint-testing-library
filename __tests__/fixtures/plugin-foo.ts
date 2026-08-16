@@ -27,6 +27,8 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 			possible: {
 				filename: [isString],
 				prependNewline: [isBoolean],
+				brokenFixer: [isBoolean],
+				withoutFixer: [isBoolean],
 			},
 			optional: true,
 		});
@@ -48,6 +50,10 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 		}
 
 		secondaryOptions?.prependNewline && root.walkRules((rule) => {
+			// Without this the rule reports again on the very code its own fixer produced,
+			// and `testRule` rightly refuses to call that fixed.
+			if ((rule.raws.before ?? '').includes('\n')) return;
+
 			report({
 				result,
 				ruleName,
@@ -65,13 +71,24 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 
 			if (primary === selector) return;
 
+			// `brokenFixer` hands Stylelint a fixer that repairs nothing, and `withoutFixer`
+			// hands it none at all. Stylelint discards whatever a fixer returns and counts it
+			// as applied, so the first one silences its own problem while leaving the code
+			// exactly as it was, and the second one leaves the problem standing.
+			const fix = (() => {
+				if (secondaryOptions?.withoutFixer) return undefined;
+				if (secondaryOptions?.brokenFixer) return () => {};
+
+				return () => (rule.selector = primary);
+			})();
+
 			report({
 				result,
 				ruleName,
 				message: messages.rejected(selector),
 				node: rule,
 				word: selector,
-				fix: () => (rule.selector = primary),
+				fix,
 			});
 		});
 	};

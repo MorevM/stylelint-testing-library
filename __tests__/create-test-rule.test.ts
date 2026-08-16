@@ -1,6 +1,6 @@
 import { afterEach, assert, describe, expect, it, vi } from 'vitest';
 import { createTestUtils } from '#';
-import { plugin, ruleName } from './fixtures/plugin-foo';
+import { messages, plugin, ruleName } from './fixtures/plugin-foo';
 import type { CreateTestUtilsSchema } from '#types';
 
 const createTestingVariables = (options?: Omit<CreateTestUtilsSchema, 'testFunctions'>) => {
@@ -20,6 +20,31 @@ const createTestingVariables = (options?: Omit<CreateTestUtilsSchema, 'testFunct
 	});
 
 	return { createTestRule, describeMock, itMock };
+};
+
+// Unlike `createTestingVariables`, this one runs the `describe` callback, so the
+// comparisons registered through `it` can be picked up and awaited by hand.
+const createRunnableTestingVariables = () => {
+	const itMock = vi.fn();
+
+	const { createTestRule } = createTestUtils({
+		testFunctions: {
+			/* @ts-expect-error -- Trust me */
+			it: itMock,
+			/* @ts-expect-error -- Trust me */
+			describe: (_description: string, callback: () => void) => callback(),
+			assert,
+			expect,
+		},
+	});
+
+	const runFirstCase = async () => {
+		const [, comparison] = itMock.mock.calls[0] as unknown as [string, () => Promise<void>];
+
+		return comparison();
+	};
+
+	return { createTestRule, runFirstCase };
 };
 
 describe('create-test-rule', () => {
@@ -90,7 +115,7 @@ describe('create-test-rule', () => {
 			reject: [{ code: '' }],
 		});
 
-		expect(describeMock).toHaveBeenCalledWith('plugin/foo: line 88 in the source file', expect.any(Function));
+		expect(describeMock).toHaveBeenCalledWith('plugin/foo: line 113 in the source file', expect.any(Function));
 	});
 
 	it('Increments group index on consecutive calls', () => {
@@ -110,6 +135,42 @@ describe('create-test-rule', () => {
 		});
 
 		expect(describeMock).toHaveBeenLastCalledWith('plugin/foo: group #2', expect.any(Function));
+	});
+
+	it('Fails a `reject` case whose fixer silences the problem without repairing it', async () => {
+		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
+		const testRule = createTestRule({ ruleName, plugins: [plugin] });
+
+		testRule({
+			config: ['.a', { brokenFixer: true }],
+			reject: [
+				{
+					code: '#a {}',
+					fixed: '#a {}',
+					message: messages.rejected('#a'),
+				},
+			],
+		});
+
+		await expect(runFirstCase()).rejects.toThrow('Warnings do not match');
+	});
+
+	it('Passes a `reject` case whose problem is left to stand with no fixer at all', async () => {
+		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
+		const testRule = createTestRule({ ruleName, plugins: [plugin] });
+
+		testRule({
+			config: ['.a', { withoutFixer: true }],
+			reject: [
+				{
+					code: '#a {}',
+					fixed: '#a {}',
+					message: messages.rejected('#a'),
+				},
+			],
+		});
+
+		await expect(runFirstCase()).resolves.not.toThrow();
 	});
 
 	// TODO: More tests for all custom features

@@ -182,11 +182,15 @@ const testRule = (schema: InternalTestRuleSchema) => {
 				universal.assert.deepEqual(fixedResult.parseErrors, [], 'Parse errors of the fixed code are not empty');
 				universal.assert.equal(fixedCode, testCase.fixed, 'Fixed code does not match `fixed`');
 
-				// Checks whether only errors other than those fixed are reported
+				// Checks whether only errors other than those fixed are reported.
+				// The relint runs in report mode on purpose: in fix mode Stylelint silences
+				// every problem whose fixer ran, so both sides of the comparison below would
+				// be filtered the same way and a fixer that silences a problem without
+				// repairing it would cancel itself out.
 				const { result: afterFixResult } = await lintWithOptions({
 					...stylelintOptions,
 					code: fixedCode ?? '',
-					fix: true,
+					fix: false,
 				});
 
 				universal.assert.deepEqual(
