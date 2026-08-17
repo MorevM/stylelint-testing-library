@@ -152,7 +152,9 @@ describe('create-test-rule', () => {
 			],
 		});
 
-		await expect(runFirstCase()).rejects.toThrow('Warnings do not match');
+		await expect(runFirstCase()).rejects.toThrow(
+			'A fixer may have suppressed a warning without resolving it.',
+		);
 	});
 
 	it('Passes a `reject` case whose problem is left to stand with no fixer at all', async () => {

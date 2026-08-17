@@ -196,7 +196,11 @@ const testRule = (schema: InternalTestRuleSchema) => {
 				universal.assert.deepEqual(
 					afterFixResult.warnings,
 					fixedResult.warnings,
-					'Warnings do not match',
+					stripIndent(`
+						Warnings after autofix differ from warnings reported for the fixed code.
+						A fixer may have suppressed a warning without resolving it.
+						If a violation cannot be fixed, call \`report()\` without a \`fix\` callback.
+					`),
 				);
 			},
 		});
