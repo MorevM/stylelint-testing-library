@@ -1,5 +1,12 @@
 
 
+## [1.1.1](https://github.com/MorevM/stylelint-testing-library/compare/v1.1.0...v1.1.1) (2026-08-17)
+
+### Bug fixes
+
+* Relint the fixed code in report mode ([#232](https://github.com/MorevM/stylelint-testing-library/issues/232)) ([6335f9a](https://github.com/MorevM/stylelint-testing-library/commit/6335f9a791dadeae43ec460b3de9ab2f2cdc6720))
+
+
 ## [1.1.0](https://github.com/MorevM/stylelint-testing-library/compare/v1.0.3...v1.1.0) (2026-05-13)
 
 ### Features
