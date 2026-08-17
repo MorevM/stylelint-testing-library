@@ -157,17 +157,26 @@ describe('create-test-rule', () => {
 		);
 	});
 
-	it('Passes a `reject` case whose problem is left to stand with no fixer at all', async () => {
+	it('Preserves fixable changes when another problem has no fixer', async () => {
 		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
 		const testRule = createTestRule({ ruleName, plugins: [plugin] });
 
 		testRule({
-			config: ['.a', { withoutFixer: true }],
+			config: ['.b', { withoutFixer: '#a' }],
 			reject: [
 				{
-					code: '#a {}',
-					fixed: '#a {}',
-					message: messages.rejected('#a'),
+					code: `
+						#a {}
+						#b {}
+					`,
+					fixed: `
+						#a {}
+						.b {}
+					`,
+					warnings: [
+						{ message: messages.rejected('#a') },
+						{ message: messages.rejected('#b') },
+					],
 				},
 			],
 		});

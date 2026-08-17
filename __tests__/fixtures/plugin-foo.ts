@@ -28,7 +28,7 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 				filename: [isString],
 				prependNewline: [isBoolean],
 				brokenFixer: [isBoolean],
-				withoutFixer: [isBoolean],
+				withoutFixer: [isString],
 			},
 			optional: true,
 		});
@@ -71,12 +71,11 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 
 			if (primary === selector) return;
 
-			// `brokenFixer` hands Stylelint a fixer that repairs nothing, and `withoutFixer`
-			// hands it none at all. Stylelint discards whatever a fixer returns and counts it
-			// as applied, so the first one silences its own problem while leaving the code
-			// exactly as it was, and the second one leaves the problem standing.
+			// `brokenFixer` hands Stylelint a fixer that repairs nothing.
+			// Stylelint discards whatever a fixer returns and counts it as applied,
+			// so it silences its own problem while leaving the code exactly as it was.
 			const fix = (() => {
-				if (secondaryOptions?.withoutFixer) return undefined;
+				if (secondaryOptions?.withoutFixer === selector) return undefined;
 				if (secondaryOptions?.brokenFixer) return () => {};
 
 				return () => (rule.selector = primary);
