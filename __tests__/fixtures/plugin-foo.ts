@@ -50,8 +50,6 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 		}
 
 		secondaryOptions?.prependNewline && root.walkRules((rule) => {
-			// Without this the rule reports again on the very code its own fixer produced,
-			// and `testRule` rightly refuses to call that fixed.
 			if ((rule.raws.before ?? '').includes('\n')) return;
 
 			report({
@@ -61,7 +59,7 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 				node: rule,
 				word: rule.selector,
 				fix: () => {
-					rule.raws.before = (context.newline ?? '') + (rule.raws.before ?? '');
+					rule.raws.before = (context.newline ?? '\n') + (rule.raws.before ?? '');
 				},
 			});
 		});
