@@ -184,5 +184,16 @@ describe('create-test-rule', () => {
 		await expect(runFirstCase()).resolves.not.toThrow();
 	});
 
+	it('Returns `void`', () => {
+		const { createTestRule } = createTestingVariables();
+		const testRule = createTestRule({ ruleName, plugins: [plugin] });
+		const result: void = testRule({
+			config: true,
+			accept: [{ code: '' }],
+		});
+
+		expect(result).toBeUndefined();
+	});
+
 	// TODO: More tests for all custom features
 });

@@ -15,7 +15,7 @@ export interface TestRule {
 	 *
 	 * @param   schema   Test group and its settings.
 	 */
-	(schema: TestRuleSchema): BaseTestRule;
+	(schema: TestRuleSchema): void;
 	skip: BaseTestRule;
 	only: BaseTestRule;
 }
