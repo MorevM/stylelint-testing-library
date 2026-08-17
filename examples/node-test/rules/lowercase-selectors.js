@@ -1,4 +1,3 @@
-/* eslint-disable import-x/exports-last */
 import { isBoolean, isString } from '@morev/utils';
 import stylelint from 'stylelint';
 
@@ -7,9 +6,9 @@ const {
 	utils: { report, ruleMessages, validateOptions },
 } = stylelint;
 
-export const ruleName = '@morev/lowercase-selectors';
+const ruleName = '@morev/lowercase-selectors';
 
-export const messages = ruleMessages(ruleName, {
+const messages = ruleMessages(ruleName, {
 	unexpected: (selector) => `Unexpected upper case characters in the "${selector}" selector`,
 });
 
@@ -54,4 +53,7 @@ ruleFunction.ruleName = ruleName;
 ruleFunction.messages = messages;
 ruleFunction.meta = { fixable: true, url: '' };
 
-export default createPlugin(ruleName, ruleFunction);
+const plugin = createPlugin(ruleName, ruleFunction);
+
+export { messages, ruleName };
+export default plugin;

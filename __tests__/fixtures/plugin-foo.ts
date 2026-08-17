@@ -1,4 +1,3 @@
-/* eslint-disable import-x/exports-last */
 import { basename } from 'node:path';
 import { isBoolean, isString } from '@morev/utils';
 import stylelint from 'stylelint';
@@ -9,9 +8,9 @@ const {
 	utils: { report, ruleMessages, validateOptions },
 } = stylelint;
 
-export const ruleName = 'plugin/foo';
+const ruleName = 'plugin/foo';
 
-export const messages = ruleMessages(ruleName, {
+const messages = ruleMessages(ruleName, {
 	rejected: (selector) => `No \`${selector.toString()}\` selector`,
 	expectFilename: (expected, actual) => `Expect \`${actual.toString()}\` to be \`${expected.toString()}\``,
 	expectNewline: (selector) => `Expect to start with a newline in the \`${selector.toString()}\` selector`,
@@ -19,7 +18,7 @@ export const messages = ruleMessages(ruleName, {
 
 const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 	return (root, result) => {
-		const validOptions = validateOptions(result, ruleName, {
+		const areOptionsValid = validateOptions(result, ruleName, {
 			actual: primary,
 			possible: [isString],
 		}, {
@@ -33,7 +32,7 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 			optional: true,
 		});
 
-		if (!validOptions) return;
+		if (!areOptionsValid) return;
 
 		const expectedFilename = secondaryOptions?.filename;
 		const actualFilename = basename(root.source?.input.file ?? '');
@@ -95,4 +94,6 @@ ruleFunction.ruleName = ruleName;
 ruleFunction.messages = messages;
 ruleFunction.meta = { fixable: true, url: '' };
 
-export const plugin = createPlugin(ruleName, ruleFunction);
+const plugin = createPlugin(ruleName, ruleFunction);
+
+export { messages, plugin, ruleName };

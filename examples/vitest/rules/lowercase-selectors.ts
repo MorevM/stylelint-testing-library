@@ -1,4 +1,3 @@
-/* eslint-disable import-x/exports-last */
 import { isBoolean, isString } from '@morev/utils';
 import stylelint from 'stylelint';
 import type { Root, Rule } from 'postcss';
@@ -8,16 +7,16 @@ const {
 	utils: { report, ruleMessages, validateOptions },
 } = stylelint;
 
-export const ruleName = '@morev/lowercase-selectors';
+const ruleName = '@morev/lowercase-selectors';
 
-export const messages = ruleMessages(ruleName, {
+const messages = ruleMessages(ruleName, {
 	unexpected: (selector: string) => `Unexpected upper case characters in the "${selector}" selector`,
 });
 
-const ruleFunction = (primary: boolean, secondary: { ignore: string | string[] }) => {
+const ruleFunction = (isPrimaryEnabled: boolean, secondary: { ignore: string | string[] }) => {
 	return (root: Root, result: any) => {
-		const validOptions = validateOptions(result, ruleName, {
-			actual: primary,
+		const areOptionsValid = validateOptions(result, ruleName, {
+			actual: isPrimaryEnabled,
 			possible: [isBoolean],
 		}, {
 			actual: secondary,
@@ -26,7 +25,7 @@ const ruleFunction = (primary: boolean, secondary: { ignore: string | string[] }
 			},
 			optional: true,
 		});
-		if (!validOptions) return;
+		if (!areOptionsValid) return;
 
 		const ignoredSelectors = secondary?.ignore ?? [];
 
@@ -55,4 +54,7 @@ ruleFunction.ruleName = ruleName;
 ruleFunction.messages = messages;
 ruleFunction.meta = { fixable: true, url: '' };
 
-export default createPlugin(ruleName, ruleFunction);
+const plugin = createPlugin(ruleName, ruleFunction);
+
+export { messages, ruleName };
+export default plugin;
