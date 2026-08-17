@@ -172,7 +172,7 @@ const testRule = (schema: InternalTestRuleSchema) => {
 					);
 				});
 
-				if (!testCase.fixed) return;
+				if (isUndefined(testCase.fixed)) return;
 
 				const {
 					result: fixedResult,
