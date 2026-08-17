@@ -17,7 +17,7 @@ const getOutputCss = (linterOutput: LinterResult) => {
 	const { results } = linterOutput;
 	const { _postcssResult: result } = results[0];
 
-	if (result?.root && result?.opts) {
+	if (result?.root && result.opts) {
 		return result.root.toString(result.opts.syntax);
 	}
 
@@ -127,8 +127,8 @@ export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRule
 	// which makes the tests platform-dependent.
 	// This code replaces the context with the specified value in such cases.
 	// @see https://github.com/stylelint/stylelint/issues/9281
-	const codeContainsNewline = !!testCase.code.match(/\r?\n/);
-	if (plugins && !codeContainsNewline && newlineFallback !== 'system') {
+	const doesCodeContainNewline = !!testCase.code.match(/\r?\n/);
+	if (plugins && !doesCodeContainNewline && newlineFallback !== 'system') {
 		plugins = toArray(plugins).map((plugin) => {
 			if (isString(plugin)) return plugin;
 

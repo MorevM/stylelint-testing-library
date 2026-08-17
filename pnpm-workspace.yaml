@@ -1,7 +1,7 @@
 packages:
   - examples/*
 
-onlyBuiltDependencies:
-  - esbuild
-  - lefthook
-  - unrs-resolver
+allowBuilds:
+  esbuild: true
+  lefthook: true
+  unrs-resolver: true

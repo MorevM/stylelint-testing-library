@@ -19,11 +19,11 @@ export const createTestUtils = (schema?: CreateTestUtilsSchema): CreateTestUtils
 	// so a universal mapping is needed.
 	const universal = createUniversalMappings(schema?.testFunctions);
 
-	const createTestRuleBind = (createTestRuleSchema: CreateTestRuleSchema) =>
+	const createTestRuleBind = (factorySchema: CreateTestRuleSchema) =>
 		createTestRule({
 			universal,
 			testUtilsSchema: { ...DEFAULT_OPTIONS, ...schema },
-			factorySchema: createTestRuleSchema,
+			factorySchema,
 		});
 
 	const testRuleConfigBind = (testRuleConfigSchems: CreateTestRuleConfigSchema) =>

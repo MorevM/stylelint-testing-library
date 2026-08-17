@@ -1,4 +1,4 @@
-/* eslint-disable vars-on-top */
+/* eslint-disable vars-on-top -- Global test API declarations must use `var` so `globalThis` assignments are typed. */
 import { assert, describe, expect, it } from 'vitest';
 import { createTestUtils } from '@morev/stylelint-testing-library';
 import plugins from './index';
