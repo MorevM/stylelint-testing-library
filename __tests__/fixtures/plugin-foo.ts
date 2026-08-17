@@ -27,6 +27,8 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 			possible: {
 				filename: [isString],
 				prependNewline: [isBoolean],
+				brokenFixer: [isBoolean],
+				withoutFixer: [isString],
 			},
 			optional: true,
 		});
@@ -48,6 +50,8 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 		}
 
 		secondaryOptions?.prependNewline && root.walkRules((rule) => {
+			if ((rule.raws.before ?? '').includes('\n')) return;
+
 			report({
 				result,
 				ruleName,
@@ -55,7 +59,7 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 				node: rule,
 				word: rule.selector,
 				fix: () => {
-					rule.raws.before = (context.newline ?? '') + (rule.raws.before ?? '');
+					rule.raws.before = (context.newline ?? '\n') + (rule.raws.before ?? '');
 				},
 			});
 		});
@@ -65,13 +69,23 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 
 			if (primary === selector) return;
 
+			// `brokenFixer` hands Stylelint a fixer that repairs nothing.
+			// Stylelint discards whatever a fixer returns and counts it as applied,
+			// so it silences its own problem while leaving the code exactly as it was.
+			const fix = (() => {
+				if (secondaryOptions?.withoutFixer === selector) return undefined;
+				if (secondaryOptions?.brokenFixer) return () => {};
+
+				return () => (rule.selector = primary);
+			})();
+
 			report({
 				result,
 				ruleName,
 				message: messages.rejected(selector),
 				node: rule,
 				word: selector,
-				fix: () => (rule.selector = primary),
+				fix,
 			});
 		});
 	};
