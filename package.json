@@ -56,7 +56,7 @@
 		"lint:stylelint": "stylelint \"**/*.css}\" --allow-empty-input",
 		"lint:stylelint:fix": "stylelint \"**/*.css\" --fix --allow-empty-input",
 		"build": "tsdown",
-		"release": "release-it --disable-metrics",
+		"release": "release-it",
 		"docs:dev": "vitepress dev docs",
 		"docs:build": "vitepress build docs",
 		"docs:preview": "vitepress preview docs"
