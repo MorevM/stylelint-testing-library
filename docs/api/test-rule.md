@@ -153,6 +153,20 @@ stylelint.lint({
 
 ---
 
+### `computeEditInfo`
+
+The same option as described in [`createTestUtils > Options > computeEditInfo`](/api/create-test-utils#computeeditinfo)
+and [`createTestRule > Options > computeEditInfo`](/api/create-test-rule#computeeditinfo),
+but takes precedence over them if specified. It can be overridden for a particular test case.
+
+::: details Show original description
+
+<!-- @include: @/_parts/properties/compute-edit-info.md#description -->
+
+:::
+
+---
+
 ### `codeFilename`
 
 <!-- @include: @/_parts/properties/code-filename.md -->
@@ -322,6 +336,17 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 
 :::
 
+#### `computeEditInfo`
+
+The same option as described in [`computeEditInfo`] above
+but takes precedence over all other levels if specified.
+
+::: details Show original description
+
+<!-- @include: @/_parts/properties/compute-edit-info.md#description -->
+
+:::
+
 #### `autoStripIndent`
 
 The same option as described in [`autoStripIndent`](#autostripindent) above
@@ -415,6 +440,31 @@ testRule({
 
 :::
 
+#### `fix`
+
+When [`computeEditInfo`] is enabled, a warning can include the expected replacement range and text.
+
+```ts{3,10-13}
+testRule({
+  config: true,
+  computeEditInfo: true,
+  reject: [
+    {
+      code: 'a { -webkit-transform: none; }',
+      warnings: [
+        {
+          message: 'Vendor-prefixed property "-webkit-transform" (property-no-vendor-prefix)',
+          fix: {
+            range: [4, 12],
+            text: '',
+          },
+        },
+      ],
+    },
+  ],
+});
+```
+
 #### `fixed`
 
 If the rule contains a fixer, you can test its operation using the `fixed` property.
@@ -460,4 +510,5 @@ testRule({ // [!code focus]
 
 ```
 
+[`computeEditInfo`]: #computeeditinfo
 [`createTestUtils > Options > autoStripIndent`]: /api/create-test-utils#autostripindent
