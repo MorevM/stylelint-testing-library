@@ -51,3 +51,16 @@ testRuleConfig({
 		},
 	],
 });
+
+testRuleConfig({
+	description: 'Extra rules',
+	extraRules: {
+		'block-no-empty': 'invalid',
+	},
+	reject: [
+		{
+			description: 'Invalid extra rule config',
+			config: 'always',
+		},
+	],
+});
