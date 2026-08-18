@@ -139,6 +139,56 @@ describe('utils', () => {
 			});
 		});
 
+		describe('computeEditInfo', () => {
+			it('Reads `computeEditInfo` from `testUtilsSchema`', () => {
+				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
+					groupIndex: 1,
+					testUtilsSchema: { testFunctions, computeEditInfo: true },
+					testRuleSchema: { config: true, accept: [] },
+					factorySchema: { ruleName: 'foo' },
+				});
+
+				expect(options.computeEditInfo).toBe(true);
+			});
+
+			it('Reads `computeEditInfo` from `factorySchema` with higher priority', () => {
+				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
+					groupIndex: 1,
+					testUtilsSchema: { testFunctions, computeEditInfo: true },
+					testRuleSchema: { config: true, accept: [] },
+					factorySchema: { ruleName: 'foo', computeEditInfo: false },
+				});
+
+				expect(options.computeEditInfo).toBe(false);
+			});
+
+			it('Reads `computeEditInfo` from `testRuleSchema` with higher priority', () => {
+				const options = getStylelintOptions({ code: TEST_CODE }, {
+					universal,
+					groupIndex: 1,
+					testUtilsSchema: { testFunctions, computeEditInfo: true },
+					testRuleSchema: { config: true, accept: [], computeEditInfo: true },
+					factorySchema: { ruleName: 'foo', computeEditInfo: false },
+				});
+
+				expect(options.computeEditInfo).toBe(true);
+			});
+
+			it('Reads `computeEditInfo` from a test case with the highest priority', () => {
+				const options = getStylelintOptions({ code: TEST_CODE, computeEditInfo: false }, {
+					universal,
+					groupIndex: 1,
+					testUtilsSchema: { testFunctions, computeEditInfo: true },
+					testRuleSchema: { config: true, accept: [], computeEditInfo: true },
+					factorySchema: { ruleName: 'foo', computeEditInfo: true },
+				});
+
+				expect(options.computeEditInfo).toBe(false);
+			});
+		});
+
 		describe('contextNewlineFallback', () => {
 			it('Wraps object plugins when `contextNewlineFallback` is set and code has no linebreaks', () => {
 				const { plugin, rule, getCapturedContext } = createPlugin();

@@ -140,6 +140,7 @@ const testRule = (schema: InternalTestRuleSchema) => {
 						column: warning.column,
 						endLine: warning.endLine,
 						endColumn: warning.endColumn,
+						fix: warning.fix,
 					}));
 
 				const hasCasesWithoutDescription = expectedWarnings.some((warning) => isUndefined(warning.text));
@@ -175,10 +176,15 @@ const testRule = (schema: InternalTestRuleSchema) => {
 
 				if (isUndefined(testCase.fixed)) return;
 
+				const autofixValidationOptions = {
+					...stylelintOptions,
+					computeEditInfo: false,
+				};
+
 				const {
 					result: fixedResult,
 					outputCss: fixedCode,
-				} = await lintWithOptions({ ...stylelintOptions, fix: true });
+				} = await lintWithOptions({ ...autofixValidationOptions, fix: true });
 
 				universal.assert.deepEqual(fixedResult.parseErrors, [], 'Parse errors of the fixed code are not empty');
 				universal.assert.equal(fixedCode, testCase.fixed, 'Fixed code does not match `fixed`');
@@ -189,7 +195,7 @@ const testRule = (schema: InternalTestRuleSchema) => {
 				// be filtered the same way and a fixer that silences a problem without
 				// repairing it would cancel itself out.
 				const { result: afterFixResult } = await lintWithOptions({
-					...stylelintOptions,
+					...autofixValidationOptions,
 					code: fixedCode ?? '',
 					fix: false,
 				});
@@ -225,5 +231,5 @@ export const createTestRule = (schema: InternalCreateTestRuleSchema): TestRule =
 	testRuleTemplate.skip = (testRuleSchema: TestRuleSchema) => bind({ ...testRuleSchema, skip: true });
 	testRuleTemplate.only = (testRuleSchema: TestRuleSchema) => bind({ ...testRuleSchema, only: true });
 
-	return testRuleTemplate as unknown as TestRule;
+	return testRuleTemplate;
 };

@@ -63,6 +63,16 @@ If your test platform injects them into the global scope, the module will pick t
 
 ---
 
+### `computeEditInfo`
+
+<!-- @include: @/_parts/properties/compute-edit-info.md -->
+
+::: info Note
+You can redefine this global setting for a particular rule, group of tests, or test case.
+:::
+
+---
+
 ### `customSyntax`
 
 <!-- @include: @/_parts/properties/custom-syntax.md -->

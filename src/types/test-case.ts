@@ -18,6 +18,15 @@ export type TestCase = {
 	codeFilename?: string;
 
 	/**
+	 * Whether to compute edit information for rule warnings.
+	 *
+	 * @see https://stylelint.io/user-guide/options/#computeeditinfo
+	 *
+	 * @default false
+	 */
+	computeEditInfo?: boolean;
+
+	/**
 	 * Maps to Stylelint's `customSyntax` option.
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax

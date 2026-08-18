@@ -68,6 +68,19 @@ but, if specified, appended to these rules.
 
 ---
 
+### `computeEditInfo`
+
+The same option as described in [`createTestUtils > Options > computeEditInfo`](/api/create-test-utils#computeeditinfo)
+but takes precedence over it if specified. It can be overridden for a particular group or test case.
+
+:::: details Show original description
+
+<!-- @include: @/_parts/properties/compute-edit-info.md#description -->
+
+::::
+
+---
+
 ### `customSyntax`
 
 The same option as described in [`createTestUtils > Options > customSyntax`](/api/create-test-utils#customsyntax)
