@@ -184,5 +184,23 @@ describe('create-test-rule', () => {
 		await expect(runFirstCase()).resolves.not.toThrow();
 	});
 
+	it('Checks an empty `fixed` value', async () => {
+		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
+		const testRule = createTestRule({ ruleName, plugins: [plugin] });
+
+		testRule({
+			config: ['.a'],
+			reject: [
+				{
+					code: '#a {}',
+					fixed: '',
+					message: messages.rejected('#a'),
+				},
+			],
+		});
+
+		await expect(runFirstCase()).rejects.toThrow('Fixed code does not match `fixed`');
+	});
+
 	// TODO: More tests for all custom features
 });
