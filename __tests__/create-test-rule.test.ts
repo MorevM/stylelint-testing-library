@@ -137,6 +137,29 @@ describe('create-test-rule', () => {
 		expect(describeMock).toHaveBeenLastCalledWith('plugin/foo: group #2', expect.any(Function));
 	});
 
+	it('Does not mutate test cases when stripping indentation', () => {
+		const { createTestRule } = createRunnableTestingVariables();
+		const testRule = createTestRule({ ruleName, plugins: [plugin] });
+		const testCase = {
+			code: `
+				#a {}
+			`,
+			fixed: `
+				.a {}
+			`,
+			message: messages.rejected('#a'),
+		};
+		const originalTestCase = { ...testCase };
+
+		testRule({
+			autoStripIndent: true,
+			config: ['.a'],
+			reject: [testCase],
+		});
+
+		expect(testCase).toStrictEqual(originalTestCase);
+	});
+
 	it('Fails a `reject` case whose fixer silences the problem without repairing it', async () => {
 		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
 		const testRule = createTestRule({ ruleName, plugins: [plugin] });
