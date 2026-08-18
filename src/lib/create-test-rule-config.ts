@@ -51,6 +51,8 @@ const testRuleConfig = (schema: InternalTestRuleConfigSchema) => {
 					plugins,
 					rules: {
 						[ruleName]: testCase.config,
+						...testUtilsSchema.extraRules,
+						...testRuleConfigSchema.extraRules,
 					},
 				},
 			});

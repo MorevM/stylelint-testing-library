@@ -137,6 +137,29 @@ describe('create-test-rule', () => {
 		expect(describeMock).toHaveBeenLastCalledWith('plugin/foo: group #2', expect.any(Function));
 	});
 
+	it('Does not mutate test cases when stripping indentation', () => {
+		const { createTestRule } = createRunnableTestingVariables();
+		const testRule = createTestRule({ ruleName, plugins: [plugin] });
+		const testCase = {
+			code: `
+				#a {}
+			`,
+			fixed: `
+				.a {}
+			`,
+			message: messages.rejected('#a'),
+		};
+		const originalTestCase = { ...testCase };
+
+		testRule({
+			autoStripIndent: true,
+			config: ['.a'],
+			reject: [testCase],
+		});
+
+		expect(testCase).toStrictEqual(originalTestCase);
+	});
+
 	it('Fails a `reject` case whose fixer silences the problem without repairing it', async () => {
 		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
 		const testRule = createTestRule({ ruleName, plugins: [plugin] });
@@ -182,6 +205,24 @@ describe('create-test-rule', () => {
 		});
 
 		await expect(runFirstCase()).resolves.not.toThrow();
+	});
+
+	it('Checks an empty `fixed` value', async () => {
+		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
+		const testRule = createTestRule({ ruleName, plugins: [plugin] });
+
+		testRule({
+			config: ['.a'],
+			reject: [
+				{
+					code: '#a {}',
+					fixed: '',
+					message: messages.rejected('#a'),
+				},
+			],
+		});
+
+		await expect(runFirstCase()).rejects.toThrow('Fixed code does not match `fixed`');
 	});
 
 	it('Returns `void`', () => {

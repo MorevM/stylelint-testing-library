@@ -81,6 +81,25 @@ testRule({
 });
 
 testRule({
+	description: 'Extra core rule with autofix',
+	config: ['.a'],
+	extraRules: {
+		'color-hex-length': 'long',
+	},
+	reject: [
+		{
+			description: 'Both rules apply their autofixes',
+			code: '#a { color: #fff; }',
+			fixed: '.a { color: #ffffff; }',
+			warnings: [
+				{ message: messages.rejected('#a') },
+				{ message: 'Expected "#fff" to be "#ffffff" (color-hex-length)' },
+			],
+		},
+	],
+});
+
+testRule({
 	config: ['.a', { filename: 'foo.css' }],
 	codeFilename: 'foo.css',
 

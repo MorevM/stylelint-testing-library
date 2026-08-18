@@ -21,7 +21,8 @@ const setupTestCases = (options: InternalSetupOptions) => {
 	const testGroup = applyModifiers(universal.describe, options.testRuleSchema);
 
 	testGroup(options.name, () => {
-		validCases.forEach((testCase, index) => {
+		validCases.forEach((sourceTestCase, index) => {
+			const testCase = { ...sourceTestCase };
 			const testFunction = applyModifiers(universal.it, testCase);
 
 			const shouldStripIndent = testCase.autoStripIndent
@@ -172,7 +173,7 @@ const testRule = (schema: InternalTestRuleSchema) => {
 					);
 				});
 
-				if (!testCase.fixed) return;
+				if (isUndefined(testCase.fixed)) return;
 
 				const {
 					result: fixedResult,
