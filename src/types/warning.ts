@@ -1,4 +1,19 @@
-import type { EditInfo } from 'stylelint';
+/**
+ * Declared locally because Stylelint 16 omits `EditInfo` from its ESM type exports.
+ *
+ * TODO [peer:stylelint@>=17]: Replace this declaration with Stylelint's `EditInfo`.
+ */
+type EditInfo = {
+	/**
+	 * Pair of 0-based source indices to replace.
+	 */
+	range: [number, number];
+
+	/**
+	 * Replacement text.
+	 */
+	text: string;
+};
 
 /**
  * A warning.

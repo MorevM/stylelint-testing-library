@@ -230,20 +230,20 @@ describe('create-test-rule', () => {
 	it('Uses inherited `computeEditInfo` only for the initial lint', async () => {
 		const lintSpy = vi.spyOn(stylelint, 'lint');
 		const { createTestRule, runFirstCase } = createRunnableTestingVariables({ computeEditInfo: true });
-		const testRule = createTestRule({ ruleName: 'property-no-vendor-prefix' });
+		const testRule = createTestRule({ ruleName: 'color-hex-length' });
 
 		testRule({
-			config: true,
+			config: 'long',
 			reject: [
 				{
-					code: 'a { -webkit-transform: none; }',
-					fixed: 'a { transform: none; }',
+					code: 'a { color: #fff }',
+					fixed: 'a { color: #ffffff }',
 					warnings: [
 						{
-							message: 'Vendor-prefixed property "-webkit-transform" (property-no-vendor-prefix)',
+							message: 'Expected "#fff" to be "#ffffff" (color-hex-length)',
 							fix: {
-								range: [4, 12],
-								text: '',
+								range: [14, 15],
+								text: 'ffff',
 							},
 						},
 					],
@@ -259,17 +259,17 @@ describe('create-test-rule', () => {
 
 	it('Fails when warning fix information does not match', async () => {
 		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
-		const testRule = createTestRule({ ruleName: 'property-no-vendor-prefix' });
+		const testRule = createTestRule({ ruleName: 'color-hex-length' });
 
 		testRule({
-			config: true,
+			config: 'long',
 			computeEditInfo: true,
 			reject: [
 				{
-					code: 'a { -webkit-transform: none; }',
+					code: 'a { color: #fff }',
 					warnings: [
 						{
-							message: 'Vendor-prefixed property "-webkit-transform" (property-no-vendor-prefix)',
+							message: 'Expected "#fff" to be "#ffffff" (color-hex-length)',
 							fix: {
 								range: [0, 1],
 								text: 'invalid',
