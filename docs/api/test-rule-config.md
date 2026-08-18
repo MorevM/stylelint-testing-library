@@ -43,7 +43,7 @@ testRuleConfig({
 ## Options
 
 You can always see the actual options in the source code
-[here](https://github.com/morevm/stylelint-testing-library/tree/master/src/types/test-rule-config-schema.ts).
+[here](https://github.com/morevm/stylelint-testing-library/blob/master/src/types/test-rule-config-schema.ts).
 
 ### `ruleName`
 
@@ -66,7 +66,7 @@ Used for output in the console, and for binding the `config` property of the `te
 ### `plugins`
 
 The same option as described in [`createTestUtils > Options > plugins`](/api/create-test-utils#plugins)
-but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+but takes precedence over values from both `createTestRuleConfig` and `createTestUtils` when specified.
 
 ::: warning Note
 It is **recommended** to define `plugins` within `createTestUtils` or `createTestRuleConfig` functions to reduce the boilerplate code.
@@ -75,7 +75,18 @@ The option only exists to ensure that the project can be a drop-in replacement f
 
 ::: details Show original description
 
-<!-- @include: @/_parts/properties/rule-name.md#description -->
+<!-- @include: @/_parts/properties/plugins.md#description -->
+
+:::
+
+### `extraRules`
+
+The same option as described in [`createTestUtils > Options > extraRules`](/api/create-test-utils#extrarules),
+but is merged after those rules, so a rule with the same name replaces the value from `createTestUtils`.
+
+::: details Show original description
+
+<!-- @include: @/_parts/properties/extra-rules.md#description -->
 
 :::
 
@@ -84,7 +95,8 @@ The option only exists to ensure that the project can be a drop-in replacement f
 
 Description of the test group. \
 It is displayed in the console and makes it easier to identify the test when necessary. \
-If not specified, the call sequence number in the file will be used.
+If omitted, it is displayed as `group #N` by default;
+`line-in-file` uses the source line instead.
 
 ::: code-group
 
@@ -116,8 +128,8 @@ testRuleConfig({
 
 ### `accept` & `reject`
 
-An array of configuration tests that should pass without warnings from Stylelint
-or where a configuration error is expected, respectively. \
+An array of rule configurations that should produce no invalid-option warnings
+or at least one invalid-option warning, respectively. \
 See more info about test cases in [Test cases](#test-cases) section below.
 
 ### `skip` & `only`
@@ -160,8 +172,8 @@ testRuleConfig({
 
 There are two types of tests:
 
-- `accept` (code which Stylelint should not complain about);
-- `reject` (code where a Stylelint error is expected).
+- `accept` (rule configurations that must produce no invalid-option warnings);
+- `reject` (rule configurations that must produce at least one invalid-option warning).
 
 They are located in the `accept` and `reject` keys of the `testRuleConfig()` options respectively.
 
@@ -172,7 +184,8 @@ Both the accepted test case and the rejected one have the same set of properties
 
 ### `config`
 
-Each test must necessarily have a `config` property, which is a mapping of the configuration options that will be passed by the end user. \
+Each test requires a `config` property: the value supplied to the tested rule
+in Stylelint's `rules` configuration. \
 A configuration test without `config` just doesn't make sense.
 
 ::: code-group
@@ -230,8 +243,8 @@ testRuleConfig({
 ```
 
 ```bash{3,4} [Console output]
-✓ {rule-name}: group №1 (1)
-  ✓ accept (1)
+✓ `{rule-name}` configs: group №1 (2)
+  ✓ accept (2)
     ✓ Keyword "always"
     ✓ Accept test case №2
 ```

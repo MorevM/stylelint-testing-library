@@ -26,15 +26,15 @@ First, install `jest` itself and some additional packages that you will need to 
 ::: code-group
 
 ```sh [npm]
-npm add -D jest-expect-message
+npm add -D jest@29 jest-expect-message
 ```
 
 ```sh [yarn]
-yarn add -D jest-expect-message
+yarn add -D jest@29 jest-expect-message
 ```
 
 ```sh [pnpm]
-pnpm add -D jest-expect-message
+pnpm add -D jest@29 jest-expect-message
 ```
 
 :::
@@ -44,15 +44,15 @@ If you are using TypeScript, install the modules required by `jest` to work with
 ::: code-group
 
 ```sh [npm]
-npm add -D ts-jest ts-node @types/jest
+npm add -D ts-jest@29 ts-node @types/jest@29
 ```
 
 ```sh [yarn]
-yarn add -D ts-jest ts-node @types/jest
+yarn add -D ts-jest@29 ts-node @types/jest@29
 ```
 
 ```sh [pnpm]
-pnpm add -D ts-jest ts-node @types/jest
+pnpm add -D ts-jest@29 ts-node @types/jest@29
 ```
 
 :::
@@ -64,17 +64,24 @@ Next, create a `jest` config file with the following content (at least):
 ::: code-group
 
 ```ts [jest.config.ts]
+import { createDefaultEsmPreset } from 'ts-jest';
 import type { JestConfigWithTsJest } from 'ts-jest';
 
-export default {
-  testEnvironment: 'node',
-  transform: {
-    '^.+.tsx?$': ['ts-jest', {}],
+const presetConfig = createDefaultEsmPreset({
+  tsconfig: {
+    module: 'ES2022',
   },
-} as JestConfigWithTsJest;
+});
+
+export default {
+  ...presetConfig,
+  testEnvironment: 'node',
+} satisfies JestConfigWithTsJest;
 ```
 
 :::
+
+The ESM preset is required for Jest to load Stylelint 17 and the ESM entry of this library.
 
 ---
 
@@ -98,7 +105,7 @@ import 'jest-expect-message';
 // To see all available `createTestUtils` options, please
 // refer to the `API Reference` section of this documentation
 // or use inline IDE suggestions.
-const { createTestRule, createTestRuleConfig } = createTestUtils();
+const { createTestRule, createTestRuleConfig } = createTestUtils({ plugins });
 
 // 5. Export these functions
 // Unfortunately, you will need to import these functions

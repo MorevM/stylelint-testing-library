@@ -22,11 +22,12 @@ export default [
 
 ```
 
-```ts [vitest.config.js]
+```ts [vitest.setup.js]
 import { assert, describe, expect, it } from 'vitest';
+import { createTestUtils } from '@morev/stylelint-testing-library';
 import plugins from './src/index.js'; // [!code focus]
 
-const { createTestRule, testRuleConfig } = createTestUtils({
+const { createTestRule, createTestRuleConfig } = createTestUtils({
   testFunctions: { assert, describe, expect, it },
   plugins, // [!code focus]
 });

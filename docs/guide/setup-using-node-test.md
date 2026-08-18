@@ -27,7 +27,7 @@ Create a `node.test.setup.js` file with the following content:
 
 ::: code-group
 
-```ts [node.test.setup.js]
+```js [node.test.setup.js]
 // 1. Import testing functions
 import * as assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
@@ -66,6 +66,7 @@ import plugins from './index.js';
 
 const { createTestRule, createTestRuleConfig } = createTestUtils({
   testFunctions: { it, describe, assert },
+  plugins,
 });
 
 globalThis.createTestRule = createTestRule;

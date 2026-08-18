@@ -8,9 +8,9 @@ Here you can configure some useful defaults described below.
 ## Options
 
 You can always see the actual options in the source code
-[here](https://github.com/morevm/stylelint-testing-library/tree/master/src/types/create-test-utils-schema.ts).
+[here](https://github.com/morevm/stylelint-testing-library/blob/master/src/types/create-test-utils-schema.ts).
 
-### `testingFunctions`
+### `testFunctions`
 
 Testing functions provided by your test platform, if you want to be explicit. \
 This is also an example of recommended use case.
@@ -20,7 +20,7 @@ This is also an example of recommended use case.
 ```ts [vitest]
 import { assert, describe, expect, it } from 'vitest';
 
-const { createTestRule, testRuleConfig } = createTestUtils({
+const { createTestRule, createTestRuleConfig } = createTestUtils({
   testFunctions: { assert, describe, expect, it },
 });
 ```
@@ -28,8 +28,8 @@ const { createTestRule, testRuleConfig } = createTestUtils({
 ```ts [jest]
 import { describe, expect, it } from '@jest/globals';
 
-const { createTestRule, testRuleConfig } = createTestUtils({
-  testFunctions: { assert, describe, expect, it },
+const { createTestRule, createTestRuleConfig } = createTestUtils({
+  testFunctions: { describe, expect, it },
 });
 ```
 
@@ -37,7 +37,7 @@ const { createTestRule, testRuleConfig } = createTestUtils({
 import * as assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-const { createTestRule, testRuleConfig } = createTestUtils({
+const { createTestRule, createTestRuleConfig } = createTestUtils({
   testFunctions: { assert, describe, it },
 });
 ```
@@ -94,7 +94,8 @@ type testGroupWithoutDescriptionAppearance = 'group-index' | 'config' | 'line-in
 We have three options:
 
 - Use the group index *(default)*;
-- Use the stringified `config` property passed to the [`testRule`] utility;
+- Use the stringified `config` property passed to the [`testRule`] utility.
+  For `testRuleConfig`, this value falls back to the group index;
 - Line number in the file where the [`testRule`] call is located *(experimental)*.
 
 The output of all of them is shown below:
@@ -147,7 +148,7 @@ the ability to set a description for a test group.
 :::
 
 
-:::: details `error-line` *(experimental)*
+:::: details `line-in-file` *(experimental)*
 
 Using the `group-index` property is usually more convenient than `config`,
 but for existing codebases with a large number of tests it can still be quite painful
@@ -214,7 +215,7 @@ We have two options: use the test index or its code, the output of both is shown
 A clean, minimalistic look that helps to quickly locate the right test case.
 
 ```sh
-✓ {rule-name}: group №1 (9)
+✓ {rule-name}: group №1 (4)
   ✓ accept (2)
     ✓ Accept test case №1 # [!code focus]
     ✓ Accept test case №2 # [!code focus]
@@ -237,7 +238,7 @@ for an existing solutions for testing Stylelint plugins that did not provide
 the ability to set a description for a test cases.
 
 ```sh
-✓ {rule-name}: group №1 (9)
+✓ {rule-name}: group №1 (3)
   ✓ accept (2)
     ✓ '.the-component {}' # [!code focus]
     ✓ '.the-component {\n\t&__element {}\n}' # [!code focus]

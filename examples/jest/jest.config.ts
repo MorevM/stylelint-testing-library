@@ -1,8 +1,13 @@
+import { createDefaultEsmPreset } from 'ts-jest';
 import type { JestConfigWithTsJest } from 'ts-jest';
 
-export default {
-	testEnvironment: 'node',
-	transform: {
-		'^.+.tsx?$': ['ts-jest', {}],
+const presetConfig = createDefaultEsmPreset({
+	tsconfig: {
+		module: 'ES2022',
 	},
-} as JestConfigWithTsJest;
+});
+
+export default {
+	...presetConfig,
+	testEnvironment: 'node',
+} satisfies JestConfigWithTsJest;

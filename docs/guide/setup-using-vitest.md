@@ -16,14 +16,32 @@ This section shows the minimal configuration - for full features and nice defaul
 check out the `API Reference` section or inspect all the options inline using editor's suggestions.
 :::
 
+First, install `vitest` itself:
+
+::: code-group
+
+```sh [npm]
+npm add -D vitest
+```
+
+```sh [yarn]
+yarn add -D vitest
+```
+
+```sh [pnpm]
+pnpm add -D vitest
+```
+
+:::
+
 Create a `vitest` setup file with the following content:
 
 ::: code-group
 
 ```ts [vitest.setup.ts]
 // 1. Import testing functions
-// This is optional - if you prefer globally declared functions for testing,
-// the module will pick the necessary functions from the global scope by itself.
+// This is optional if Vitest already exposes these functions globally,
+// for example through the `test.globals` configuration option.
 import { assert, describe, expect, it } from 'vitest';
 
 // 2. Import the factory that will create functions bound to `vitest`

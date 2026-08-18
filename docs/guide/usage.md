@@ -41,7 +41,7 @@ Let's pretend that your rule takes a boolean argument as the `primary` option
 and an optional object with the `ignore` key, in which an array of strings is expected,
 as the `secondary` option.
 
-E.g. configurations `true`, `[true, { ignore: '.foo' }]` are valid;
+E.g. configurations `true`, `[true, { ignore: ['.foo'] }]` are valid;
 
 ---
 
@@ -142,6 +142,7 @@ testRule({
   description: 'Default options',
   // This config applies to all nested test cases.
   config: [true],
+  autoStripIndent: true,
   // Code examples that should not trigger any Stylelint warnings
   // if you include your rule with the `config` configuration above.
   accept: [
@@ -158,8 +159,8 @@ testRule({
     },
   ],
   // Here are code samples where your rule is expected to call the `report`
-  // function, with the option (optionally) to check the value after
-  // applying the fixer as well (if Stylelint is run with the `--fix` flag).
+  // function. Supplying `fixed` also makes the library run Stylelint with
+  // autofix enabled and compare the resulting code.
   reject: [
     {
       description: 'Selector in upper case',
@@ -183,7 +184,7 @@ testRule({
         .FOO {}
         .BAR {}
       `,
-      code: `
+      fixed: `
         .foo {}
         .bar {}
       `,
@@ -199,8 +200,8 @@ testRule({
         },
         {
           message: messages.unexpected('.BAR'),
-          line: 2, column: 2,
-          endLine: 1, endColumn: 5,
+          line: 2, column: 1,
+          endLine: 2, endColumn: 5,
         },
       ],
     },
@@ -213,7 +214,8 @@ testRule({
 testRule({
   description: 'With secondary option',
   // This config is different from the previous one.
-  config: [true, { ignore: '.FOO' }],
+  config: [true, { ignore: ['.FOO'] }],
+  autoStripIndent: true,
   accept: [
     {
       description: 'Ignores `.FOO` selector as specified',
@@ -227,7 +229,7 @@ testRule({
       fixed: `.bar {}`,
       warnings: [
         {
-          message: messages.unexpected('.FOO'),
+          message: messages.unexpected('.BAR'),
           line: 1, column: 1,
           endLine: 1, endColumn: 5,
         },
@@ -239,15 +241,15 @@ testRule({
         .FOO {}
         .BAR {}
       `,
-      code: `
+      fixed: `
         .FOO {}
         .bar {}
       `,
       warnings: [
         {
           message: messages.unexpected('.BAR'),
-          line: 2, column: 2,
-          endLine: 1, endColumn: 5,
+          line: 2, column: 1,
+          endLine: 2, endColumn: 5,
         },
       ],
     },
