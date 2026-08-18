@@ -29,7 +29,10 @@ testRule({
 testRule({
   config: [true, { option: false }],
   reject: [
-    { code: '.bar {}' },
+    {
+      code: '.bar {}',
+      message: 'Expected warning message',
+    },
   ],
 });
 ```
@@ -37,7 +40,7 @@ testRule({
 ## Options
 
 You can always see the actual options in the source code
-[here](https://github.com/morevm/stylelint-testing-library/tree/master/src/types/test-rule-schema.ts).
+[here](https://github.com/morevm/stylelint-testing-library/blob/master/src/types/test-rule-schema.ts).
 
 ### `ruleName`
 
@@ -60,7 +63,7 @@ The option only exists to ensure that the project can be a drop-in replacement f
 ### `plugins`
 
 The same option as described in [`createTestUtils > Options > plugins`](/api/create-test-utils#plugins)
-but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+but takes precedence over values from both `createTestRule` and `createTestUtils` when specified.
 
 ::: warning Note
 It is **recommended** to define `plugins` within `createTestUtils` or `createTestRule` functions to reduce the boilerplate code.
@@ -69,7 +72,7 @@ The option only exists to ensure that the project can be a drop-in replacement f
 
 ::: details Show original description
 
-<!-- @include: @/_parts/properties/rule-name.md#description -->
+<!-- @include: @/_parts/properties/plugins.md#description -->
 
 :::
 
@@ -78,7 +81,8 @@ The option only exists to ensure that the project can be a drop-in replacement f
 ### `extraRules`
 
 The same option as described in [`createTestUtils > Options > extraRules`](/api/create-test-utils#extrarules)
-but, if specified, appended to these rules.
+and [`createTestRule > Options > extraRules`](/api/create-test-rule#extrarules),
+but is merged after those rules, so a rule with the same name replaces their value.
 
 ::: details Show original description
 
@@ -189,7 +193,7 @@ but takes precedence over them if specified, allowing to overwrite the defaults 
 
 ### `accept` & `reject`
 
-An array of tests that should pass without warnings from Stylelint or where an error is expected, respectively. \
+An array of tests that should pass without warnings from Stylelint or where warnings are expected, respectively. \
 See more info about test cases in [Test cases](#test-cases) section below.
 
 ---
@@ -223,7 +227,8 @@ testRule({
 ### `autoStripIndent`
 
 The same option as described in [`createTestUtils > Options > autoStripIndent`]
-but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+and [`createTestRule > Options > autoStripIndent`](/api/create-test-rule#autostripindent),
+but takes precedence over them if specified.
 
 :::: details Show original description
 
@@ -236,7 +241,8 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 ### `contextNewlineFallback`
 
 The same option as described in [`createTestUtils > Options > contextNewlineFallback`](/api/create-test-utils#contextnewlinefallback)
-but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+and [`createTestRule > Options > contextNewlineFallback`](/api/create-test-rule#contextnewlinefallback),
+but takes precedence over them if specified.
 
 :::: details Show original description
 
@@ -248,8 +254,8 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 
 There are two types of tests:
 
-- `accept` (code which Stylelint should not complain about);
-- `reject` (code where a Stylelint error is expected).
+- `accept` (code that must produce no parse errors, invalid-option warnings, or rule warnings);
+- `reject` (code where specific rule warnings are expected, without parse errors or invalid-option warnings).
 
 They are located in the `accept` and `reject` keys of the `testRule()` options respectively.
 
@@ -317,7 +323,7 @@ testRule({
 #### `codeFilename`
 
 The same option as described in [`codeFilename`](#codefilename) above
-but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+but takes precedence over it if specified, allowing to overwrite the default for a particular test case.
 
 ::: details Show original description
 
@@ -328,7 +334,7 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 #### `customSyntax`
 
 The same option as described in [`customSyntax`](#customsyntax) above
-but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+but takes precedence over it if specified, allowing to overwrite the default for a particular test case.
 
 ::: details Show original description
 
@@ -350,7 +356,7 @@ but takes precedence over all other levels if specified.
 #### `autoStripIndent`
 
 The same option as described in [`autoStripIndent`](#autostripindent) above
-but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+but takes precedence over it if specified, allowing to overwrite the default for a particular test case.
 
 :::: details Show original description
 
@@ -361,7 +367,7 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 #### `contextNewlineFallback`
 
 The same option as described in [`contextNewlineFallback`](#contextnewlinefallback) above
-but takes precedence over it if specified, allowing to overwrite the defaults for a particular rule.
+but takes precedence over it if specified, allowing to overwrite the default for a particular test case.
 
 :::: details Show original description
 
@@ -440,6 +446,53 @@ testRule({
 
 :::
 
+#### `warnings`
+
+An array of expected warnings. Use it when a test must produce more than one warning,
+or when you prefer the same shape for single- and multiple-warning cases.
+
+When `warnings` is present, it is used instead of the warning properties declared directly on the test case.
+
+```ts{6-13}
+testRule({
+  config: true,
+  reject: [
+    {
+      code: '.foo, .bar {}',
+      warnings: [
+        {
+          message: 'Unexpected selector ".foo"',
+        },
+        {
+          message: 'Unexpected selector ".bar"',
+        },
+      ],
+    },
+  ],
+});
+```
+
+#### `line`, `column`, `endLine` & `endColumn`
+
+Expected source positions of a warning. They can be declared directly on the test case in the short form,
+or on individual objects inside `warnings`. All four properties are optional and are compared only when specified.
+
+```ts{7-10}
+testRule({
+  config: true,
+  reject: [
+    {
+      code: '.foo {}',
+      message: 'Expected warning message',
+      line: 1,
+      column: 1,
+      endLine: 1,
+      endColumn: 5,
+    },
+  ],
+});
+```
+
 #### `fix`
 
 When [`computeEditInfo`] is enabled, a warning can include the expected replacement range and text.
@@ -468,8 +521,10 @@ testRule({
 #### `fixed`
 
 If the rule contains a fixer, you can test its operation using the `fixed` property.
+The library runs Stylelint with autofix enabled, compares the resulting code,
+then lints the fixed code again to verify any remaining warnings.
 
-```ts{10}
+```ts{11}
 // Let's pretend we are testing a rule that
 // disallows the use of UPPERCASE and has a fixer
 
@@ -479,6 +534,7 @@ testRule({
   reject: [
     {
       code: '.THE-SELECTOR {}',
+      message: 'Unexpected uppercase selector',
       fixed: '.the-selector {}',
     },
   ],

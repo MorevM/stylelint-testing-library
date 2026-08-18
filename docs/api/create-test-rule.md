@@ -10,7 +10,8 @@ or overwrite those described in [`createTestUtils`](/api/create-test-utils) for 
 It is assumed that you have declared the `createTestRule` function globally as specified in the `Guide` section
 of the documentation and the `plugins` key is present within `createTestUtils`.
 
-`plugins` is a required property **only if you have not specified it in `createTestUtils`**.
+When testing a plugin rule, provide its plugin through `createTestUtils` or this factory.
+Core Stylelint rules do not require `plugins`.
 :::
 
 ```ts
@@ -27,13 +28,12 @@ testRule({
 ## Options
 
 You can always see the actual options in the source code
-[here](https://github.com/morevm/stylelint-testing-library/tree/master/src/types/create-test-rule-schema.ts).
+[here](https://github.com/morevm/stylelint-testing-library/blob/master/src/types/create-test-rule-schema.ts).
 
 ### `ruleName`
 
 ::: info Info
-This is the only required option *(if you have specified `plugins` in `createTestUtils`)*. \
-All others are optional, but can improve your DX.
+This is the only required option. All others are optional, but can improve your DX.
 :::
 
 <!-- @include: @/_parts/properties/rule-name.md -->
@@ -58,7 +58,7 @@ but takes precedence over it if specified, allowing to overwrite the defaults fo
 ### `extraRules`
 
 The same option as described in [`createTestUtils > Options > extraRules`](/api/create-test-utils#extrarules)
-but, if specified, appended to these rules.
+but is merged after those rules, so a rule with the same name replaces the value from `createTestUtils`.
 
 :::: details Show original description
 

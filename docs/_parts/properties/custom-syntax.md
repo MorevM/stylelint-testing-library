@@ -1,6 +1,7 @@
 <!-- #region description -->
 
-Maps to [Stylelint's `customSyntax`](https://stylelint.io/user-guide/configure/#customsyntax) configuration property, has the same signature.
+Maps a custom syntax module name to
+[Stylelint's `customSyntax`](https://stylelint.io/user-guide/configure/#customsyntax) option.
 
 <!-- #endregion description -->
 
@@ -11,11 +12,12 @@ Example:
 
 ::: code-group
 
-```ts [src/index.js] {6}
+```ts [vitest.setup.js] {7}
 import { assert, describe, expect, it } from 'vitest';
+import { createTestUtils } from '@morev/stylelint-testing-library';
 import plugins from './src/index.js';
 
-const { createTestRule, testRuleConfig } = createTestUtils({
+const { createTestRule, createTestRuleConfig } = createTestUtils({
   testFunctions: { assert, describe, expect, it },
   customSyntax: 'postcss-scss',
   plugins,

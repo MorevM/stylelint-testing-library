@@ -8,7 +8,8 @@ A function that allows you to create test groups to check configuration options 
 It is assumed that you have declared the `createTestRuleConfig` function globally as specified in the `Guide` section
 of the documentation and the `plugins` key is present within `createTestUtils`.
 
-`plugins` is a required property **only if you have not specified it in `createTestUtils`**.
+When testing a plugin rule, provide its plugin through `createTestUtils` or this factory.
+Core Stylelint rules do not require `plugins`.
 :::
 
 ```ts
@@ -25,12 +26,12 @@ testRuleConfig({
 ## Options
 
 You can always see the actual options in the source code
-[here](https://github.com/morevm/stylelint-testing-library/tree/master/src/types/create-test-rule-config-schema.ts).
+[here](https://github.com/morevm/stylelint-testing-library/blob/master/src/types/create-test-rule-config-schema.ts).
 
 ### `ruleName`
 
 ::: info Info
-This is the only required option *(if you have specified `plugins` in `createTestUtils`)*.
+This is the only required option.
 :::
 
 The name of the rule that is being tested.
