@@ -36,6 +36,15 @@ export type TestRuleSchema = {
 	config: unknown;
 
 	/**
+	 * Whether to compute edit information for rule warnings.
+	 *
+	 * @see https://stylelint.io/user-guide/options/#computeeditinfo
+	 *
+	 * @default false
+	 */
+	computeEditInfo?: boolean;
+
+	/**
 	 * Maps to Stylelint's `codeFilename` option.
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#codefilename

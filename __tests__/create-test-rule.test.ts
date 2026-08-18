@@ -1,4 +1,5 @@
 import { afterEach, assert, describe, expect, it, vi } from 'vitest';
+import stylelint from 'stylelint';
 import { createTestUtils } from '#';
 import { messages, plugin, ruleName } from './fixtures/plugin-foo';
 import type { CreateTestUtilsSchema } from '#types';
@@ -24,7 +25,7 @@ const createTestingVariables = (options?: Omit<CreateTestUtilsSchema, 'testFunct
 
 // Unlike `createTestingVariables`, this one runs the `describe` callback, so the
 // comparisons registered through `it` can be picked up and awaited by hand.
-const createRunnableTestingVariables = () => {
+const createRunnableTestingVariables = (options?: Omit<CreateTestUtilsSchema, 'testFunctions'>) => {
 	const itMock = vi.fn();
 
 	const { createTestRule } = createTestUtils({
@@ -36,6 +37,7 @@ const createRunnableTestingVariables = () => {
 			assert,
 			expect,
 		},
+		...options,
 	});
 
 	const runFirstCase = async () => {
@@ -115,7 +117,7 @@ describe('create-test-rule', () => {
 			reject: [{ code: '' }],
 		});
 
-		expect(describeMock).toHaveBeenCalledWith('plugin/foo: line 113 in the source file', expect.any(Function));
+		expect(describeMock).toHaveBeenCalledWith('plugin/foo: line 115 in the source file', expect.any(Function));
 	});
 
 	it('Increments group index on consecutive calls', () => {
@@ -223,6 +225,62 @@ describe('create-test-rule', () => {
 		});
 
 		await expect(runFirstCase()).rejects.toThrow('Fixed code does not match `fixed`');
+	});
+
+	it('Uses inherited `computeEditInfo` only for the initial lint', async () => {
+		const lintSpy = vi.spyOn(stylelint, 'lint');
+		const { createTestRule, runFirstCase } = createRunnableTestingVariables({ computeEditInfo: true });
+		const testRule = createTestRule({ ruleName: 'property-no-vendor-prefix' });
+
+		testRule({
+			config: true,
+			reject: [
+				{
+					code: 'a { -webkit-transform: none; }',
+					fixed: 'a { transform: none; }',
+					warnings: [
+						{
+							message: 'Vendor-prefixed property "-webkit-transform" (property-no-vendor-prefix)',
+							fix: {
+								range: [4, 12],
+								text: '',
+							},
+						},
+					],
+				},
+			],
+		});
+
+		await expect(runFirstCase()).resolves.not.toThrow();
+		expect(lintSpy).toHaveBeenNthCalledWith(1, expect.objectContaining({ computeEditInfo: true }));
+		expect(lintSpy).toHaveBeenNthCalledWith(2, expect.objectContaining({ computeEditInfo: false, fix: true }));
+		expect(lintSpy).toHaveBeenNthCalledWith(3, expect.objectContaining({ computeEditInfo: false, fix: false }));
+	});
+
+	it('Fails when warning fix information does not match', async () => {
+		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
+		const testRule = createTestRule({ ruleName: 'property-no-vendor-prefix' });
+
+		testRule({
+			config: true,
+			computeEditInfo: true,
+			reject: [
+				{
+					code: 'a { -webkit-transform: none; }',
+					warnings: [
+						{
+							message: 'Vendor-prefixed property "-webkit-transform" (property-no-vendor-prefix)',
+							fix: {
+								range: [0, 1],
+								text: 'invalid',
+							},
+						},
+					],
+				},
+			],
+		});
+
+		await expect(runFirstCase()).rejects.toThrow('Warning with index "0" does not match');
 	});
 
 	it('Returns `void`', () => {

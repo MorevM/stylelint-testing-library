@@ -1,4 +1,4 @@
-import { deepClone, isString, toArray } from '@morev/utils';
+import { deepClone, isString, isUndefined, toArray } from '@morev/utils';
 import stylelint from 'stylelint';
 import type { LinterOptions, LinterResult, Plugin, Rule, RuleContext } from 'stylelint';
 import type { TestCase } from '#types';
@@ -111,6 +111,10 @@ const wrapPluginRule = (plugin_: Plugin, newlineStyle: 'lf' | 'crlf') => {
 export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRuleSchema) => {
 	const { testRuleSchema, factorySchema, testUtilsSchema } = schema;
 	const ruleName = testRuleSchema.ruleName ?? factorySchema.ruleName;
+	const computeEditInfo = testCase.computeEditInfo
+		?? testRuleSchema.computeEditInfo
+		?? factorySchema.computeEditInfo
+		?? testUtilsSchema.computeEditInfo;
 
 	let plugins = testRuleSchema.plugins
 		?? factorySchema.plugins
@@ -138,6 +142,7 @@ export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRule
 
 	return {
 		code: testCase.code,
+		...(!isUndefined(computeEditInfo) && { computeEditInfo }),
 		config: {
 			plugins,
 			rules: {

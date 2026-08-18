@@ -1,3 +1,5 @@
+import type { EditInfo } from 'stylelint';
+
 /**
  * A warning.
  */
@@ -26,4 +28,9 @@ export type Warning = {
 	 * Expected end column number of the warning.
 	 */
 	endColumn?: number;
+
+	/**
+	 * Expected edit information of the warning.
+	 */
+	fix?: EditInfo;
 };
