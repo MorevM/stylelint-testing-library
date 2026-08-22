@@ -20,7 +20,7 @@
 		"@morev/utils": "^3.12.1",
 		"postcss": "^8.5.26",
 		"stylelint": "^17.14.1",
-		"typescript": "^5.7.3",
+		"typescript": "^6.0.3",
 		"vitest": "^3.0.5"
 	}
 }
