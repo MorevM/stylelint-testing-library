@@ -23,7 +23,7 @@ importers:
         version: 9.0.2(stylelint@17.14.1(supports-color@10.2.2)(typescript@6.0.3))(typescript@6.0.3)
       '@release-it/conventional-changelog':
         specifier: 8.0.2
-        version: 8.0.2(release-it@21.0.2(@types/node@22.19.18)(supports-color@10.2.2))
+        version: 8.0.2(release-it@21.0.3(@types/node@22.19.18)(supports-color@10.2.2))
       '@shikijs/transformers':
         specifier: ^4.4.3
         version: 4.4.3
@@ -40,8 +40,8 @@ importers:
         specifier: ^8.5.26
         version: 8.5.26
       release-it:
-        specifier: ^21.0.2
-        version: 21.0.2(@types/node@22.19.18)(supports-color@10.2.2)
+        specifier: ^21.0.3
+        version: 21.0.3(@types/node@22.19.18)(supports-color@10.2.2)
       stylelint:
         specifier: ^17.14.1
         version: 17.14.1(supports-color@10.2.2)(typescript@6.0.3)
@@ -5440,8 +5440,8 @@ packages:
     resolution: {integrity: sha512-NgRBy2Nx/bE+9F27nVHnqcN5HjyLmecqsqx2PJHu3/IEtADD4WuxuXIVExD5PoSDFVrl78dOonfcOe5O+5nbzQ==}
     hasBin: true
 
-  release-it@21.0.2:
-    resolution: {integrity: sha512-QwyDnWiQNB4d8Hc2b5FLMHcsKz9S2O1dMNnPB7w+0knsL5r8+qbnznDA1X7Bw5D863+Ud7eRHc71Cfth5Tlrgg==}
+  release-it@21.0.3:
+    resolution: {integrity: sha512-Pd5Uqj5hJmVAZzb+QSkkDgfvHJwRBazWryb90x5FYHhPxg35cE+1wX9v1DXk4ENy8C0osHxH/yRk1mvnZi7ZHQ==}
     engines: {node: ^22.21.0 || >=24.0.0}
     hasBin: true
 
@@ -7049,7 +7049,7 @@ snapshots:
     dependencies:
       '@simple-libs/child-process-utils': 1.0.2
       '@simple-libs/stream-utils': 1.2.0
-      semver: 7.8.0
+      semver: 7.8.5
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -8070,13 +8070,13 @@ snapshots:
     dependencies:
       quansync: 1.0.0
 
-  '@release-it/conventional-changelog@8.0.2(release-it@21.0.2(@types/node@22.19.18)(supports-color@10.2.2))':
+  '@release-it/conventional-changelog@8.0.2(release-it@21.0.3(@types/node@22.19.18)(supports-color@10.2.2))':
     dependencies:
       concat-stream: 2.0.0
       conventional-changelog: 5.1.0
       conventional-recommended-bump: 9.0.0
       git-semver-tags: 8.0.1
-      release-it: 21.0.2(@types/node@22.19.18)(supports-color@10.2.2)
+      release-it: 21.0.3(@types/node@22.19.18)(supports-color@10.2.2)
       semver: 7.8.0
     transitivePeerDependencies:
       - conventional-commits-filter
@@ -9364,7 +9364,7 @@ snapshots:
       handlebars: 4.7.9
       json-stringify-safe: 5.0.1
       meow: 12.1.1
-      semver: 7.8.0
+      semver: 7.8.5
       split2: 4.2.0
 
   conventional-changelog@5.1.0:
@@ -10463,7 +10463,7 @@ snapshots:
   git-semver-tags@7.0.1:
     dependencies:
       meow: 12.1.1
-      semver: 7.8.0
+      semver: 7.8.5
 
   git-semver-tags@8.0.1:
     dependencies:
@@ -12047,13 +12047,13 @@ snapshots:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.16.2
-      semver: 7.8.0
+      semver: 7.8.5
       validate-npm-package-license: 3.0.4
 
   normalize-package-data@6.0.2:
     dependencies:
       hosted-git-info: 7.0.2
-      semver: 7.8.0
+      semver: 7.8.5
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -12491,7 +12491,7 @@ snapshots:
     dependencies:
       jsesc: 3.1.0
 
-  release-it@21.0.2(@types/node@22.19.18)(supports-color@10.2.2):
+  release-it@21.0.3(@types/node@22.19.18)(supports-color@10.2.2):
     dependencies:
       '@inquirer/prompts': 8.5.2(@types/node@22.19.18)
       '@octokit/rest': 22.0.1
@@ -13492,7 +13492,7 @@ snapshots:
       picomatch: 4.0.4
       postcss: 8.5.26
       rollup: 4.60.3
-      tinyglobby: 0.2.16
+      tinyglobby: 0.2.17
     optionalDependencies:
       '@types/node': 22.19.18
       fsevents: 2.3.3
