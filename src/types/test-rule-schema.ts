@@ -98,9 +98,9 @@ export type TestRuleSchema = {
 
 	/**
 	 * Names of the rules whose warnings this group checks. Provide at least one rule name.
-	 * Omit to check warnings from all rules.
+	 * Omit this option or pass `undefined` to check warnings from all rules.
 	 */
-	warningsFrom?: string[];
+	warningsFrom?: string[] | undefined;
 } & ({
 	/**
 	 * Accepted test cases.

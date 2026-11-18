@@ -94,7 +94,8 @@ but is merged after those rules, so a rule with the same name replaces their val
 
 ### `warningsFrom`
 
-List one or more rule names to check their warnings in this group. Omit the option to check all rules.
+List one or more rule names to check their warnings in this group.
+Omit the option or pass `undefined` to check all rules.
 An empty array raises an error when defining the group.
 All configured rules run. The tester compares the selected warnings in Stylelint's reporting order.
 Syntax diagnostics and configuration errors are checked independently, and `fixed` covers the full stylesheet.
