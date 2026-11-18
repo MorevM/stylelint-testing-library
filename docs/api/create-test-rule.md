@@ -68,6 +68,14 @@ but is merged after those rules, so a rule with the same name replaces the value
 
 ---
 
+### `languageOptions`
+
+Set the CSS grammar for all test groups created by this factory.
+The object replaces the [project language options](/api/create-test-utils#languageoptions).
+Individual groups and cases can override it.
+
+---
+
 ### `computeEditInfo`
 
 The same option as described in [`createTestUtils > Options > computeEditInfo`](/api/create-test-utils#computeeditinfo)

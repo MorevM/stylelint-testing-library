@@ -177,6 +177,22 @@ stylelint.lint({
 
 ---
 
+### `languageOptions`
+
+Override the [rule's language options](/api/create-test-rule#languageoptions) for this group.
+Stylelint uses the selected grammar for lint, autofix, and the check of the fixed CSS.
+
+```ts
+testRule({
+  ruleName: 'property-no-unknown',
+  config: true,
+  languageOptions: { syntax: { properties: { 'brand-ink': '<color>' } } },
+  accept: [{ code: 'a { brand-ink: red; }' }],
+});
+```
+
+---
+
 ### `computeEditInfo`
 
 The same option as described in [`createTestUtils > Options > computeEditInfo`](/api/create-test-utils#computeeditinfo)
@@ -350,6 +366,11 @@ but takes precedence over it if specified, allowing to overwrite the default for
 <!-- @include: @/_parts/properties/code-filename.md#description -->
 
 :::
+
+#### `languageOptions`
+
+Override the [group's language options](#languageoptions) for this `accept` or `reject` case.
+The object replaces the inherited grammar in full. Pass `{}` to use Stylelint's standard grammar.
 
 #### `customSyntax`
 

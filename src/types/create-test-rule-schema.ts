@@ -1,4 +1,5 @@
 import type { Config } from 'stylelint';
+import type { CreateTestUtilsSchema } from '#types';
 
 /**
  * Options of `createTestRule` utility function.
@@ -25,6 +26,11 @@ export type CreateTestRuleSchema = {
 	 * Extra rules to apply.
 	 */
 	extraRules?: Record<string, any>;
+
+	/**
+	 * Replaces the project language options for this rule.
+	 */
+	languageOptions?: CreateTestUtilsSchema['languageOptions'];
 
 	/**
 	 * Whether to compute edit information for rule warnings.

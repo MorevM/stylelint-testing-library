@@ -1,3 +1,5 @@
+import type { CreateTestUtilsSchema } from '#types';
+
 /**
  * A generic test case.
  */
@@ -16,6 +18,11 @@ export type TestCase = {
 	 * A filename for this `code` property.
 	 */
 	codeFilename?: string;
+
+	/**
+	 * Replaces the inherited language options for this case. Use `{}` for the standard grammar.
+	 */
+	languageOptions?: CreateTestUtilsSchema['languageOptions'];
 
 	/**
 	 * Whether to compute edit information for rule warnings.

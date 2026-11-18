@@ -63,6 +63,22 @@ If your test platform injects them into the global scope, the module will pick t
 
 ---
 
+### `languageOptions`
+
+Set [Stylelint's language options](https://stylelint.io/user-guide/configure/#languageoptions)
+once for all rule tests. Requires Stylelint 16.15 or later.
+
+```ts
+const { createTestRule } = createTestUtils({
+  languageOptions: { syntax: { properties: { 'brand-ink': '<color>' } } },
+});
+```
+
+A rule, group, or individual test case can replace the entire object.
+An omitted option or `undefined` inherits the nearest value. Pass `{}` to use the standard grammar.
+
+---
+
 ### `computeEditInfo`
 
 <!-- @include: @/_parts/properties/compute-edit-info.md -->

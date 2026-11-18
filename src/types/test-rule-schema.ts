@@ -1,5 +1,5 @@
 import type { Config } from 'stylelint';
-import type { AcceptedTestCase, RejectedTestCase } from '#types';
+import type { AcceptedTestCase, CreateTestUtilsSchema, RejectedTestCase } from '#types';
 
 /**
  * A test schema.
@@ -34,6 +34,11 @@ export type TestRuleSchema = {
 	 * Config to pass to the rule.
 	 */
 	config: unknown;
+
+	/**
+	 * Replaces the inherited language options for this group.
+	 */
+	languageOptions?: CreateTestUtilsSchema['languageOptions'];
 
 	/**
 	 * Whether to compute edit information for rule warnings.

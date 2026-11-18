@@ -111,6 +111,11 @@ const wrapPluginRule = (plugin_: Plugin, newlineStyle: 'lf' | 'crlf') => {
 export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRuleSchema) => {
 	const { testRuleSchema, factorySchema, testUtilsSchema } = schema;
 	const ruleName = testRuleSchema.ruleName ?? factorySchema.ruleName;
+	const languageOptions = testCase.languageOptions
+		?? testRuleSchema.languageOptions
+		?? factorySchema.languageOptions
+		?? testUtilsSchema.languageOptions;
+
 	const computeEditInfo = testCase.computeEditInfo
 		?? testRuleSchema.computeEditInfo
 		?? factorySchema.computeEditInfo
@@ -144,6 +149,7 @@ export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRule
 		code: testCase.code,
 		...(!isUndefined(computeEditInfo) && { computeEditInfo }),
 		config: {
+			...(!isUndefined(languageOptions) && { languageOptions }),
 			plugins,
 			rules: {
 				[ruleName]: testRuleSchema.config,
