@@ -1,6 +1,7 @@
 import { inspect } from 'node:util';
 import { capitalize, isEmpty, isNull, isString, isUndefined, stripIndent } from '@morev/utils';
 import { applyModifiers, fetchErrorLine, getStylelintOptions, lintWithOptions, omitUndefinedValues } from '#utils';
+import type { LintResult } from 'stylelint';
 import type { AcceptedTestCase, RejectedTestCase, TestRule, TestRuleSchema } from '#types';
 import type { InternalCreateTestRuleSchema, InternalSetupOptions, InternalTestRuleSchema } from '#types/internal';
 
@@ -84,6 +85,12 @@ const testRule = (schema: InternalTestRuleSchema) => {
 	})();
 
 	const actualRuleName = testRuleSchema.ruleName ?? factorySchema.ruleName;
+	const { warningsFrom } = testRuleSchema;
+	const selectWarnings = (warnings: LintResult['warnings']) => {
+		if (!warningsFrom) return warnings;
+		return warnings.filter(({ rule }) => rule === 'CssSyntaxError' || warningsFrom.includes(rule));
+	};
+
 	universal.describe(`${actualRuleName}: ${nameSuffix}`, () => {
 		// `Accept` scenarios
 		!isEmpty(testRuleSchema.accept) && setupTestCases({
@@ -98,7 +105,7 @@ const testRule = (schema: InternalTestRuleSchema) => {
 
 				universal.assert.ok(result, 'No lint result');
 				universal.assert.deepEqual(parseErrors, [], 'Parse errors are not empty');
-				universal.assert.deepEqual(warnings, [], 'Warnings are not empty');
+				universal.assert.deepEqual(selectWarnings(warnings), [], 'Warnings are not empty');
 				universal.assert.deepEqual(
 					invalidOptionWarnings,
 					[],
@@ -121,7 +128,8 @@ const testRule = (schema: InternalTestRuleSchema) => {
 
 				universal.assert.ok(result, 'No lint result');
 
-				const { warnings: actualWarnings, parseErrors, invalidOptionWarnings } = result;
+				const { warnings, parseErrors, invalidOptionWarnings } = result;
+				const actualWarnings = selectWarnings(warnings);
 
 				universal.assert.deepEqual(parseErrors, [], 'Parse errors are not empty');
 
@@ -210,8 +218,8 @@ const testRule = (schema: InternalTestRuleSchema) => {
 				});
 
 				universal.assert.deepEqual(
-					afterFixResult.warnings,
-					fixedResult.warnings,
+					selectWarnings(afterFixResult.warnings),
+					selectWarnings(fixedResult.warnings),
 					stripIndent(`
 						Warnings after autofix differ from warnings reported for the fixed code.
 						A fixer may have suppressed a warning without resolving it.

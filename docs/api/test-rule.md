@@ -92,6 +92,25 @@ but is merged after those rules, so a rule with the same name replaces their val
 
 ---
 
+### `warningsFrom`
+
+An optional array of rule names whose warnings to check in this group.
+All configured rules run. The tester compares the selected warnings in Stylelint's reporting order.
+Omitting the option checks all rule warnings. An empty array selects none.
+Syntax diagnostics and configuration errors are checked independently, and `fixed` covers the full stylesheet.
+
+```ts
+testRule({
+  ruleName: 'color-hex-length',
+  config: 'long',
+  extraRules: { 'block-no-empty': true },
+  warningsFrom: ['color-hex-length'],
+  accept: [{ code: 'a {}' }],
+});
+```
+
+---
+
 ### `description`
 
 Description of the test group. \

@@ -95,6 +95,12 @@ export type TestRuleSchema = {
 	 * @default {}
 	 */
 	extraRules?: Record<string, any>;
+
+	/**
+	 * Names of the rules whose warnings this group checks.
+	 * Omit to check warnings from all rules.
+	 */
+	warningsFrom?: string[];
 } & ({
 	/**
 	 * Accepted test cases.
