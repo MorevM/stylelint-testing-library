@@ -36,6 +36,12 @@ export type TestRuleSchema = {
 	config: unknown;
 
 	/**
+	 * Language configuration for rules that consult Stylelint's CSS grammar.
+	 * Available since Stylelint 16.15.
+	 */
+	languageOptions?: Config[Extract<'languageOptions', keyof Config>];
+
+	/**
 	 * Whether to compute edit information for rule warnings.
 	 *
 	 * @see https://stylelint.io/user-guide/options/#computeeditinfo

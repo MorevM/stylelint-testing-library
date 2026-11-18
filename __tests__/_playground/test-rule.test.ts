@@ -9,6 +9,19 @@ const { createTestRule } = createTestUtils({
 const testRule = createTestRule({ ruleName,	plugins: [plugin] });
 
 testRule({
+	ruleName: 'property-no-unknown',
+	config: true,
+	languageOptions: { syntax: { properties: { 'brand-ink': '<color>' } } },
+	extraRules: { 'color-hex-length': 'long' },
+	accept: [{ code: 'a { brand-ink: red; }' }],
+	reject: [{
+		code: 'a { brand-ink: #fff; }',
+		message: 'Expected "#fff" to be "#ffffff" (color-hex-length)',
+		fixed: 'a { brand-ink: #ffffff; }',
+	}],
+});
+
+testRule({
 	config: ['.a'],
 	accept: [
 		{

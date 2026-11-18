@@ -144,6 +144,7 @@ export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRule
 		code: testCase.code,
 		...(!isUndefined(computeEditInfo) && { computeEditInfo }),
 		config: {
+			...(!isUndefined(testRuleSchema.languageOptions) && { languageOptions: testRuleSchema.languageOptions }),
 			plugins,
 			rules: {
 				[ruleName]: testRuleSchema.config,

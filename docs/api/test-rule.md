@@ -157,6 +157,22 @@ stylelint.lint({
 
 ---
 
+### `languageOptions`
+
+Pass [Stylelint's language options](https://stylelint.io/user-guide/configure/#languageoptions)
+to every lint and autofix run in this group. Requires Stylelint 16.15 or later.
+
+```ts
+testRule({
+  ruleName: 'property-no-unknown',
+  config: true,
+  languageOptions: { syntax: { properties: { 'brand-ink': '<color>' } } },
+  accept: [{ code: 'a { brand-ink: red; }' }],
+});
+```
+
+---
+
 ### `computeEditInfo`
 
 The same option as described in [`createTestUtils > Options > computeEditInfo`](/api/create-test-utils#computeeditinfo)
