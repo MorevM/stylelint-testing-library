@@ -519,12 +519,13 @@ testRule({
 
 #### `fix`
 
-When [`computeEditInfo`] is enabled, a warning can include the expected replacement range and text.
+Provide `{ range, text }` to check an editor edit, or `null` to check that the warning has no edit.
+Either expectation enables [`computeEditInfo`] for the initial lint of this case.
+Omit `fix` to skip the edit assertion for that warning.
 
-```ts{3,10-13}
+```ts{9-12}
 testRule({
   config: true,
-  computeEditInfo: true,
   reject: [
     {
       code: 'a { -webkit-transform: none; }',

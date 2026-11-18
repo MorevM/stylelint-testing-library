@@ -199,7 +199,7 @@ describe('create-test-rule', () => {
 						.b {}
 					`,
 					warnings: [
-						{ message: messages.rejected('#a') },
+						{ message: messages.rejected('#a'), fix: null },
 						{ message: messages.rejected('#b') },
 					],
 				},
@@ -258,9 +258,9 @@ describe('create-test-rule', () => {
 		});
 	});
 
-	it('Uses inherited `computeEditInfo` only for the initial lint', async () => {
+	it('Infers `computeEditInfo` from an expected edit only for the initial lint', async () => {
 		const lintSpy = vi.spyOn(stylelint, 'lint');
-		const { createTestRule, runFirstCase } = createRunnableTestingVariables({ computeEditInfo: true });
+		const { createTestRule, runFirstCase } = createRunnableTestingVariables({ computeEditInfo: false });
 		const testRule = createTestRule({ ruleName: 'color-hex-length' });
 
 		testRule({
@@ -309,6 +309,22 @@ describe('create-test-rule', () => {
 					],
 				},
 			],
+		});
+
+		await expect(runFirstCase()).rejects.toThrow('Warning with index "0" does not match');
+	});
+
+	it('Fails when a warning expected to have no edit provides one', async () => {
+		const { createTestRule, runFirstCase } = createRunnableTestingVariables();
+		const testRule = createTestRule({ ruleName: 'color-hex-length' });
+
+		testRule({
+			config: 'long',
+			reject: [{
+				code: 'a { color: #fff }',
+				message: 'Expected "#fff" to be "#ffffff" (color-hex-length)',
+				fix: null,
+			}],
 		});
 
 		await expect(runFirstCase()).rejects.toThrow('Warning with index "0" does not match');

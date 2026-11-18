@@ -116,7 +116,11 @@ const testRule = (schema: InternalTestRuleSchema) => {
 			name: 'reject',
 			cases: testRuleSchema.reject,
 			comparisons: (testCase: RejectedTestCase, caseIndex: number) => async () => {
+				const expectedWarnings = testCase.warnings ?? [testCase];
 				const stylelintOptions = getStylelintOptions(testCase, schema);
+				if (expectedWarnings.some((warning) => !isUndefined(warning.fix))) {
+					stylelintOptions.computeEditInfo = true;
+				}
 				const { result } = await lintWithOptions(stylelintOptions);
 
 				universal.assert.ok(result, 'No lint result');
@@ -142,17 +146,7 @@ const testRule = (schema: InternalTestRuleSchema) => {
 					);
 				});
 
-				const expectedWarnings = (testCase.warnings ?? [testCase])
-					.map((warning) => omitUndefinedValues({
-						text: warning.message,
-						line: warning.line,
-						column: warning.column,
-						endLine: warning.endLine,
-						endColumn: warning.endColumn,
-						fix: warning.fix,
-					}));
-
-				const hasCasesWithoutDescription = expectedWarnings.some((warning) => isUndefined(warning.text));
+				const hasCasesWithoutDescription = expectedWarnings.some((warning) => isUndefined(warning.message));
 				universal.assert.equal(
 					hasCasesWithoutDescription,
 					false,
@@ -174,13 +168,24 @@ const testRule = (schema: InternalTestRuleSchema) => {
 					);
 				}
 
-				expectedWarnings.forEach((expectedWarning, index) => {
+				expectedWarnings.forEach((warning, index) => {
+					const actual = actualWarnings[index];
+					const message = `Warning with index "${index}" does not match`;
 					universal.assert.toMatchObject(
-						actualWarnings[index],
-						expectedWarning,
-						`Warning with index "${index}" does not match`,
+						actual,
+						omitUndefinedValues({
+							text: warning.message,
+							line: warning.line,
+							column: warning.column,
+							endLine: warning.endLine,
+							endColumn: warning.endColumn,
+						}),
+						message,
 						{ index },
 					);
+					if (!isUndefined(warning.fix)) {
+						universal.assert.deepEqual(actual.fix ?? null, warning.fix, message);
+					}
 				});
 
 				if (isUndefined(testCase.fixed)) return;
