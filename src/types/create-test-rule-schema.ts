@@ -51,7 +51,7 @@ export type CreateTestRuleSchema = {
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax
 	 */
-	customSyntax?: string | undefined;
+	customSyntax?: Config['customSyntax'];
 
 	/**
 	 * Whether to always strip indentation of code blocks within test groups.

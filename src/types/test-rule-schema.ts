@@ -66,7 +66,7 @@ export type TestRuleSchema = {
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax
 	 */
-	customSyntax?: string | undefined;
+	customSyntax?: Config['customSyntax'];
 
 	/**
 	 * Whether to run only the test case.
