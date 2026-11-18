@@ -73,6 +73,23 @@ You can redefine this global setting for a particular rule, group of tests, or t
 
 ---
 
+### `referenceFiles`
+
+Set [Stylelint's reference files](https://stylelint.io/user-guide/configure/#referencefiles)
+once for all rule tests that use definitions from external stylesheets.
+Available since Stylelint 17.9 and stable since Stylelint 18.
+
+```ts
+const { createTestRule } = createTestUtils({
+  referenceFiles: ['fixtures/tokens.css', 'fixtures/animations.css'],
+});
+```
+
+A rule, group, or individual case can replace the entire set of files.
+Omit the option or pass `undefined` to inherit the nearest value. Pass `[]` to clear the set.
+
+---
+
 ### `customSyntax`
 
 <!-- @include: @/_parts/properties/custom-syntax.md -->

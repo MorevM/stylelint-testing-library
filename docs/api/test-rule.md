@@ -173,9 +173,8 @@ but takes precedence over them if specified. It can be overridden for a particul
 
 ### `referenceFiles`
 
-Pass [Stylelint's reference files](https://stylelint.io/user-guide/configure/#referencefiles)
-to all lint and autofix runs in a group. Stylelint resolves the file patterns and loads the definitions.
-Available since Stylelint 17.9 and stable since Stylelint 18.
+Override the [rule's reference files](/api/create-test-rule#referencefiles) for this group.
+Stylelint loads the selected files for lint, autofix, and the check of the fixed CSS.
 
 ```ts
 testRule({
@@ -338,6 +337,11 @@ testRule({
 ```
 
 :::
+
+#### `referenceFiles`
+
+Replace the [group's reference files](#referencefiles) for one `accept` or `reject` case.
+For example, pass `[]` to verify that an animation is reported as unknown when its definition is unavailable.
 
 #### `codeFilename`
 

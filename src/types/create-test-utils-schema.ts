@@ -40,6 +40,12 @@ export type CreateTestUtilsSchema = {
 	computeEditInfo?: boolean;
 
 	/**
+	 * External stylesheets that supply definitions for rule tests.
+	 * Available since Stylelint 17.9 and stable since Stylelint 18.
+	 */
+	referenceFiles?: Config[Extract<'referenceFiles', keyof Config>] | undefined;
+
+	/**
 	 * Maps to Stylelint's `customSyntax` option.
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax

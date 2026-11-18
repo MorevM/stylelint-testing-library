@@ -1,5 +1,5 @@
 import type { Config } from 'stylelint';
-import type { AcceptedTestCase, RejectedTestCase } from '#types';
+import type { AcceptedTestCase, CreateTestUtilsSchema, RejectedTestCase } from '#types';
 
 /**
  * A test schema.
@@ -52,10 +52,9 @@ export type TestRuleSchema = {
 	codeFilename?: string;
 
 	/**
-	 * External stylesheets that supply definitions used by the tested CSS.
-	 * Available since Stylelint 17.9 and stable since Stylelint 18.
+	 * Replaces the inherited reference files for this group.
 	 */
-	referenceFiles?: Config[Extract<'referenceFiles', keyof Config>];
+	referenceFiles?: CreateTestUtilsSchema['referenceFiles'];
 
 	/**
 	 * Maps to Stylelint's `customSyntax` option.

@@ -1,3 +1,5 @@
+import type { CreateTestUtilsSchema } from '#types';
+
 /**
  * A generic test case.
  */
@@ -25,6 +27,11 @@ export type TestCase = {
 	 * @default false
 	 */
 	computeEditInfo?: boolean;
+
+	/**
+	 * Replaces the inherited reference files for this case. Pass `[]` to clear them.
+	 */
+	referenceFiles?: CreateTestUtilsSchema['referenceFiles'];
 
 	/**
 	 * Maps to Stylelint's `customSyntax` option.

@@ -1,4 +1,5 @@
 import type { Config } from 'stylelint';
+import type { CreateTestUtilsSchema } from '#types';
 
 /**
  * Options of `createTestRule` utility function.
@@ -34,6 +35,11 @@ export type CreateTestRuleSchema = {
 	 * @default false
 	 */
 	computeEditInfo?: boolean;
+
+	/**
+	 * Replaces the project reference files for this rule.
+	 */
+	referenceFiles?: CreateTestUtilsSchema['referenceFiles'];
 
 	/**
 	 * Maps to Stylelint's `customSyntax` option.
