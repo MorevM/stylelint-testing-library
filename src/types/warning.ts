@@ -45,7 +45,7 @@ export type Warning = {
 	endColumn?: number;
 
 	/**
-	 * Expected edit information of the warning.
+	 * Expected editor edit, or `null` to require a warning without an edit.
 	 */
-	fix?: EditInfo;
+	fix?: EditInfo | null;
 };
