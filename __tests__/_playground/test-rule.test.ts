@@ -8,10 +8,12 @@ const { createTestRule } = createTestUtils({
 
 const testRule = createTestRule({ ruleName,	plugins: [plugin] });
 
-testRule({
-	ruleName: 'property-no-unknown',
+const languageOptions = { syntax: { properties: { 'brand-ink': '<color>' } } };
+const { createTestRule: createPropertyTestRule } = createTestUtils({ languageOptions });
+const testProjectGrammar = createPropertyTestRule({ ruleName: 'property-no-unknown' });
+
+testProjectGrammar({
 	config: true,
-	languageOptions: { syntax: { properties: { 'brand-ink': '<color>' } } },
 	extraRules: { 'color-hex-length': 'long' },
 	accept: [{ code: 'a { brand-ink: red; }' }],
 	reject: [{
@@ -19,6 +21,23 @@ testRule({
 		message: 'Expected "#fff" to be "#ffffff" (color-hex-length)',
 		fixed: 'a { brand-ink: #ffffff; }',
 	}],
+});
+
+const testStandardGrammar = createPropertyTestRule({ ruleName: 'property-no-unknown', languageOptions: {} });
+const propertyConfig = [true, { message: 'Unknown test property' }];
+const brandDeclaration = 'a { brand-ink: red; }';
+const unknownProperty = { code: brandDeclaration, message: 'Unknown test property (property-no-unknown)' };
+
+testStandardGrammar({
+	config: propertyConfig,
+	reject: [unknownProperty],
+});
+
+testStandardGrammar({
+	config: propertyConfig,
+	languageOptions,
+	accept: [{ code: brandDeclaration }],
+	reject: [{ ...unknownProperty, languageOptions: {} }],
 });
 
 testRule({

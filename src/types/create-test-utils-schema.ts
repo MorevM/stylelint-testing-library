@@ -31,6 +31,11 @@ export type CreateTestUtilsSchema = {
 	extraRules?: Record<string, any>;
 
 	/**
+	 * Default CSS grammar for rule tests. Available since Stylelint 16.15.
+	 */
+	languageOptions?: Config[Extract<'languageOptions', keyof Config>] | undefined;
+
+	/**
 	 * Whether to compute edit information for rule warnings.
 	 *
 	 * @see https://stylelint.io/user-guide/options/#computeeditinfo
