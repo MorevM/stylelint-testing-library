@@ -1,5 +1,5 @@
 import { basename } from 'node:path';
-import { isBoolean, isString } from '@morev/utils';
+import { isBoolean, isString, toArray } from '@morev/utils';
 import stylelint from 'stylelint';
 import type { Rule } from 'stylelint';
 
@@ -28,6 +28,7 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 				prependNewline: [isBoolean],
 				brokenFixer: [isBoolean],
 				withoutFixer: [isString],
+				preserveSelectors: [isString],
 			},
 			optional: true,
 		});
@@ -63,10 +64,15 @@ const ruleFunction: Rule = (primary, secondaryOptions, context) => {
 			});
 		});
 
+		const preservedSelectors = toArray(secondaryOptions?.preserveSelectors);
 		root.walkRules((rule) => {
 			const { selector } = rule;
 
 			if (primary === selector) return;
+			if (preservedSelectors.includes(selector)) {
+				result.warn(`Cannot replace preserved selector "${selector}"`, { stylelintType: 'invalidOption' });
+				return;
+			}
 
 			// `brokenFixer` hands Stylelint a fixer that repairs nothing.
 			// Stylelint discards whatever a fixer returns and counts it as applied,

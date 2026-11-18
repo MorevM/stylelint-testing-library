@@ -124,14 +124,23 @@ const testRule = (schema: InternalTestRuleSchema) => {
 				const { warnings: actualWarnings, parseErrors, invalidOptionWarnings } = result;
 
 				universal.assert.deepEqual(parseErrors, [], 'Parse errors are not empty');
-				universal.assert.deepEqual(
-					invalidOptionWarnings,
-					[],
-					stripIndent(`
-						Stylelint config errors are not empty.
-						Please use \`testRuleConfig\` function to test configuration options.
-					`),
-				);
+
+				const expectedInvalidOptionWarnings = testCase.invalidOptionWarnings ?? [];
+				if (invalidOptionWarnings.length !== expectedInvalidOptionWarnings.length) {
+					universal.assert.deepEqual(
+						invalidOptionWarnings.map(({ text }) => text),
+						expectedInvalidOptionWarnings,
+						'Invalid option warning count does not match',
+					);
+				}
+
+				expectedInvalidOptionWarnings.forEach((expected, index) => {
+					const { text } = invalidOptionWarnings[index];
+					universal.assert.ok(
+						isString(expected) ? text === expected : text.search(expected) !== -1,
+						`Expected invalid option warning at index ${index} to match ${inspect(expected)}, got ${inspect(text)}`,
+					);
+				});
 
 				const expectedWarnings = (testCase.warnings ?? [testCase])
 					.map((warning) => omitUndefinedValues({
@@ -149,7 +158,7 @@ const testRule = (schema: InternalTestRuleSchema) => {
 					false,
 					stripIndent(`
 						Test case with index "${caseIndex}" does not have a "message" property.
-						All "reject" test cases must have a "message" property at least.
+						Specify a "message" for each expected rule warning, or use "warnings: []" for none.
 					`),
 				);
 
