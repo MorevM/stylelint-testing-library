@@ -55,7 +55,7 @@ export type CreateTestUtilsSchema = {
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax
 	 */
-	customSyntax?: string;
+	customSyntax?: Config['customSyntax'];
 
 	/**
 	 * How to display names of test groups (in the console)

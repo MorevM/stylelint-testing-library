@@ -1,5 +1,6 @@
 import { assert, describe, expect, it, vi } from 'vitest';
 import { isString } from '@morev/utils';
+import postcss from 'postcss';
 import { createUniversalMappings, getStylelintOptions } from '#utils';
 import type { Plugin, Rule, RuleContext } from 'stylelint';
 
@@ -418,7 +419,8 @@ describe('utils', () => {
 			});
 
 			it('Reads `customSyntax` from a test case, it takes precedence over schemas if specified', () => {
-				const options = getStylelintOptions({ code: TEST_CODE, customSyntax: 'test' }, {
+				const syntax = { parse: postcss.parse, stringify: postcss.stringify };
+				const options = getStylelintOptions({ code: TEST_CODE, customSyntax: syntax }, {
 					universal,
 					groupIndex: 1,
 					testUtilsSchema: {
@@ -438,7 +440,7 @@ describe('utils', () => {
 							foo: true,
 						},
 					},
-					customSyntax: 'test',
+					customSyntax: syntax,
 					codeFilename: undefined,
 				});
 			});
