@@ -1,4 +1,97 @@
+## [1.2.0](https://github.com/MorevM/stylelint-testing-library/compare/v1.1.1...v1.2.0) (2026-11-18)
 
+### Testing warnings and fixes
+
+#### Check warnings from one rule
+
+In an integration test with multiple rules, use `warningsFrom: [ruleName]` to check warnings from just the rule under test.
+Here the empty block triggers the helper rule, but the color rule has nothing to report.
+All configured rules still run, and `fixed` checks their combined output.
+
+```ts
+const testRule = createTestRule({ ruleName: 'color-hex-length' });
+
+testRule({
+  config: 'long',
+  extraRules: { 'block-no-empty': true },
+  warningsFrom: ['color-hex-length'],
+  accept: [{ code: 'a {}' }],
+});
+```
+
+#### Check the edit an editor would offer
+
+Use `fix` to check the [range and replacement text](https://stylelint.io/user-guide/node-api/#edit-info) for one warning.
+Use `fix: null` to assert that the warning offers no edit. Either expectation enables
+[`computeEditInfo`](https://stylelint.io/user-guide/options/#computeeditinfo) automatically. Omit `fix` to skip this check.
+
+```ts
+testRule({
+  config: 'long',
+  reject: [{
+    code: 'a { color: #fff }',
+    message: 'Expected "#fff" to be "#ffffff" (color-hex-length)',
+    fix: { range: [14, 15], text: 'ffff' },
+    fixed: 'a { color: #ffffff }',
+  }],
+});
+```
+
+#### Check configuration errors that depend on the CSS
+
+Some rules only discover a configuration error when they encounter particular CSS.
+List the expected [`invalidOptionWarnings`](https://stylelint.io/user-guide/node-api/#result-object) in reporting order,
+using strings or regular expressions. For a rule that replaces selectors, this case checks what happens when it encounters a protected one.
+
+```ts
+const code = '.keep {}';
+
+testSelectorRule({
+  config: ['.replacement', { preserveSelectors: ['.keep'] }],
+  reject: [{
+    code,
+    invalidOptionWarnings: [/Cannot replace preserved selector/],
+    warnings: [],
+    fixed: code
+  }],
+});
+```
+
+### Testing with your project's CSS
+
+#### Share grammar and reference files
+
+Set [`languageOptions`](https://stylelint.io/user-guide/configure/#languageoptions) once
+to share your project's CSS grammar (Stylelint 16.15+).
+Use [`referenceFiles`](https://stylelint.io/user-guide/configure/#referencefiles) to load definitions such as keyframes (Stylelint 17.9+).
+You can replace either setting for one rule, group, or individual case.
+
+```ts
+const { createTestRule } = createTestUtils({
+  languageOptions: { syntax: { properties: { 'brand-ink': '<color>' } } },
+  referenceFiles: ['fixtures/animations.css'],
+});
+```
+
+#### Pass a PostCSS syntax object
+
+TypeScript now accepts an imported syntax object directly in Stylelint's
+[`customSyntax`](https://stylelint.io/user-guide/options/#customsyntax) option.
+
+```ts
+import scss from 'postcss-scss';
+
+const testRule = createTestRule({ ruleName: 'block-no-empty', customSyntax: scss });
+```
+
+### Other fixes
+
+- For a fixer that removes the entire input, `fixed: ''` now checks that the resulting stylesheet is empty.
+- Test cases can be reused across groups. Stripping indentation now preserves the original `code` and `fixed` strings.
+- `testRuleConfig` now includes `extraRules` when validating a configuration.
+- The TypeScript signature for `testRule(...)` now reflects its `void` return value.
+
+The setup guides and examples for Jest, Vitest, and Node’s test runner have also been updated.
 
 ## [1.1.1](https://github.com/MorevM/stylelint-testing-library/compare/v1.1.0...v1.1.1) (2026-08-17)
 
