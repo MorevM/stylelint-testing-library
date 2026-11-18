@@ -121,6 +121,11 @@ export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRule
 		?? factorySchema.computeEditInfo
 		?? testUtilsSchema.computeEditInfo;
 
+	const referenceFiles = testCase.referenceFiles
+		?? testRuleSchema.referenceFiles
+		?? factorySchema.referenceFiles
+		?? testUtilsSchema.referenceFiles;
+
 	let plugins = testRuleSchema.plugins
 		?? factorySchema.plugins
 		?? testUtilsSchema.plugins;
@@ -157,6 +162,7 @@ export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRule
 				...factorySchema.extraRules,
 				...testRuleSchema.extraRules,
 			},
+			...(!isUndefined(referenceFiles) && { referenceFiles }),
 		},
 		customSyntax: (() => {
 			if ('customSyntax' in testCase) return testCase.customSyntax;

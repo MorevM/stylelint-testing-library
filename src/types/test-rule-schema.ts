@@ -57,6 +57,11 @@ export type TestRuleSchema = {
 	codeFilename?: string;
 
 	/**
+	 * Replaces the inherited reference files for this group.
+	 */
+	referenceFiles?: CreateTestUtilsSchema['referenceFiles'];
+
+	/**
 	 * Maps to Stylelint's `customSyntax` option.
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax

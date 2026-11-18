@@ -207,6 +207,24 @@ but takes precedence over them if specified. It can be overridden for a particul
 
 ---
 
+### `referenceFiles`
+
+Override the [rule's reference files](/api/create-test-rule#referencefiles) for this group.
+Stylelint loads the selected files for lint, autofix, and the check of the fixed CSS.
+
+```ts
+testRule({
+  ruleName: 'no-unknown-animations',
+  config: true,
+  referenceFiles: { files: 'fixtures/animations.css' },
+  accept: [{ code: 'a { animation-name: pulse; }' }],
+});
+```
+
+The example assumes `fixtures/animations.css` defines `@keyframes pulse`.
+
+---
+
 ### `codeFilename`
 
 <!-- @include: @/_parts/properties/code-filename.md -->
@@ -355,6 +373,11 @@ testRule({
 ```
 
 :::
+
+#### `referenceFiles`
+
+Replace the [group's reference files](#referencefiles) for one `accept` or `reject` case.
+For example, pass `[]` to verify that an animation is reported as unknown when its definition is unavailable.
 
 #### `codeFilename`
 

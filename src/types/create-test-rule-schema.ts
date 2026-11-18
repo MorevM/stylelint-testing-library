@@ -42,6 +42,11 @@ export type CreateTestRuleSchema = {
 	computeEditInfo?: boolean;
 
 	/**
+	 * Replaces the project reference files for this rule.
+	 */
+	referenceFiles?: CreateTestUtilsSchema['referenceFiles'];
+
+	/**
 	 * Maps to Stylelint's `customSyntax` option.
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax

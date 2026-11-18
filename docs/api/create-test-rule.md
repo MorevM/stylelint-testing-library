@@ -89,6 +89,13 @@ but takes precedence over it if specified. It can be overridden for a particular
 
 ---
 
+### `referenceFiles`
+
+Set the external stylesheets for tests created by this factory.
+This value replaces the [project reference files](/api/create-test-utils#referencefiles).
+
+---
+
 ### `customSyntax`
 
 The same option as described in [`createTestUtils > Options > customSyntax`](/api/create-test-utils#customsyntax)

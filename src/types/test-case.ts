@@ -34,6 +34,11 @@ export type TestCase = {
 	computeEditInfo?: boolean;
 
 	/**
+	 * Replaces the inherited reference files for this case. Pass `[]` to clear them.
+	 */
+	referenceFiles?: CreateTestUtilsSchema['referenceFiles'];
+
+	/**
 	 * Maps to Stylelint's `customSyntax` option.
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax
