@@ -52,6 +52,12 @@ export type TestRuleSchema = {
 	codeFilename?: string;
 
 	/**
+	 * External stylesheets that supply definitions used by the tested CSS.
+	 * Available since Stylelint 17.9 and stable since Stylelint 18.
+	 */
+	referenceFiles?: Config[Extract<'referenceFiles', keyof Config>];
+
+	/**
 	 * Maps to Stylelint's `customSyntax` option.
 	 *
 	 * @see https://stylelint.io/user-guide/usage/options#customsyntax

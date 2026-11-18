@@ -151,6 +151,7 @@ export const getStylelintOptions = (testCase: TestCase, schema: InternalTestRule
 				...factorySchema.extraRules,
 				...testRuleSchema.extraRules,
 			},
+			...(!isUndefined(testRuleSchema.referenceFiles) && { referenceFiles: testRuleSchema.referenceFiles }),
 		},
 		customSyntax: (() => {
 			if ('customSyntax' in testCase) return testCase.customSyntax;

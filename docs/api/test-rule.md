@@ -171,6 +171,25 @@ but takes precedence over them if specified. It can be overridden for a particul
 
 ---
 
+### `referenceFiles`
+
+Pass [Stylelint's reference files](https://stylelint.io/user-guide/configure/#referencefiles)
+to all lint and autofix runs in a group. Stylelint resolves the file patterns and loads the definitions.
+Available since Stylelint 17.9 and stable since Stylelint 18.
+
+```ts
+testRule({
+  ruleName: 'no-unknown-animations',
+  config: true,
+  referenceFiles: { files: 'fixtures/animations.css' },
+  accept: [{ code: 'a { animation-name: pulse; }' }],
+});
+```
+
+The example assumes `fixtures/animations.css` defines `@keyframes pulse`.
+
+---
+
 ### `codeFilename`
 
 <!-- @include: @/_parts/properties/code-filename.md -->
