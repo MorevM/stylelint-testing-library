@@ -83,6 +83,7 @@ testRule({
 testRule({
 	description: 'Extra core rule with autofix',
 	config: ['.a'],
+	warningsFrom: ['color-hex-length', ruleName],
 	extraRules: {
 		'color-hex-length': 'long',
 	},
@@ -97,6 +98,29 @@ testRule({
 			],
 		},
 	],
+});
+
+testRule({
+	description: 'Checks warnings from extra rules when warningsFrom is omitted',
+	config: ['.a'],
+	extraRules: { 'color-hex-length': 'long' },
+	reject: [{
+		code: '.a { color: #fff; }',
+		message: 'Expected "#fff" to be "#ffffff" (color-hex-length)',
+	}],
+});
+
+testRule({
+	description: 'Selects warnings while applying all fixers',
+	config: ['.a'],
+	extraRules: { 'color-hex-length': 'long' },
+	warningsFrom: [ruleName],
+	accept: [{ code: '.a { color: #fff; }' }],
+	reject: [{
+		code: '#a { color: #fff; }',
+		message: messages.rejected('#a'),
+		fixed: '.a { color: #ffffff; }',
+	}],
 });
 
 testRule({

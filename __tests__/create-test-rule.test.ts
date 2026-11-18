@@ -120,6 +120,17 @@ describe('create-test-rule', () => {
 		expect(describeMock).toHaveBeenCalledWith('plugin/foo: line 115 in the source file', expect.any(Function));
 	});
 
+	it('Rejects an empty `warningsFrom` when defining a group', () => {
+		const { createTestRule } = createTestingVariables();
+		const testRule = createTestRule({ ruleName, plugins: [plugin] });
+
+		expect(() => testRule({
+			config: true,
+			warningsFrom: [],
+			accept: [{ code: '' }],
+		})).toThrow('warningsFrom must contain at least one rule name. Omit it to check all rules.');
+	});
+
 	it('Increments group index on consecutive calls', () => {
 		const { createTestRule, describeMock } = createTestingVariables({});
 		const testRule = createTestRule({ ruleName,	plugins: [plugin] });
