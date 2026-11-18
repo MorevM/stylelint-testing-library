@@ -227,6 +227,37 @@ describe('create-test-rule', () => {
 		await expect(runFirstCase()).rejects.toThrow('Fixed code does not match `fixed`');
 	});
 
+	describe('CSS-dependent invalid option warnings', () => {
+		const code = '.foo {} .bar {}';
+		const config = ['.replacement', { preserveSelectors: ['.foo', '.bar'] }];
+
+		it('Matches configuration errors in order and checks the unchanged autofix output', async () => {
+			const { createTestRule, runFirstCase } = createRunnableTestingVariables();
+			const testRule = createTestRule({ ruleName, plugins: [plugin] });
+
+			testRule({
+				config,
+				reject: [{
+					code,
+					invalidOptionWarnings: ['Cannot replace preserved selector ".foo"', /preserved selector "\.bar"/],
+					warnings: [],
+					fixed: code,
+				}],
+			});
+
+			await expect(runFirstCase()).resolves.not.toThrow();
+		});
+
+		it('Fails when configuration errors are undeclared', async () => {
+			const { createTestRule, runFirstCase } = createRunnableTestingVariables();
+			const testRule = createTestRule({ ruleName, plugins: [plugin] });
+
+			testRule({ config, reject: [{ code, warnings: [], fixed: code }] });
+
+			await expect(runFirstCase()).rejects.toThrow('Invalid option warning count does not match');
+		});
+	});
+
 	it('Uses inherited `computeEditInfo` only for the initial lint', async () => {
 		const lintSpy = vi.spyOn(stylelint, 'lint');
 		const { createTestRule, runFirstCase } = createRunnableTestingVariables({ computeEditInfo: true });

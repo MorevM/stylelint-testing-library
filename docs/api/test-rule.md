@@ -255,7 +255,7 @@ but takes precedence over them if specified.
 There are two types of tests:
 
 - `accept` (code that must produce no parse errors, invalid-option warnings, or rule warnings);
-- `reject` (code where specific rule warnings are expected, without parse errors or invalid-option warnings).
+- `reject` (code that must parse successfully and produce the expected rule and configuration warnings).
 
 They are located in the `accept` and `reject` keys of the `testRule()` options respectively.
 
@@ -401,9 +401,8 @@ Can contain all the same properties as the `accept` test, but in addition:
 
 #### `message`
 
-All `reject` tests must have at least one additional field - `message`. \
-It can be declared either in the case itself (if a single error is expected) or inside its `warnings`
-if more than one error is expected or if you prefer to always use `warnings`, even for a single test case.
+Each expected rule warning requires a `message`.
+Declare it directly on the test case for a single warning, or on each entry in `warnings`.
 
 ::: code-group
 
@@ -467,6 +466,31 @@ testRule({
           message: 'Unexpected selector ".bar"',
         },
       ],
+    },
+  ],
+});
+```
+
+#### `invalidOptionWarnings`
+
+Use this field when a rule reports a configuration error only after it encounters particular CSS.
+List the expected messages in the order Stylelint reports them. A string matches the full text,
+and a regular expression matches a pattern within it. Omitting the field expects zero configuration warnings.
+
+Set `warnings: []` when the rule produces only configuration warnings.
+Use `fixed: code` to check that autofix leaves the input unchanged.
+
+```ts
+const code = '.foo {}';
+
+testRule({
+  config: ['.replacement', { preserveSelectors: ['.foo'] }],
+  reject: [
+    {
+      code,
+      invalidOptionWarnings: [/Cannot replace preserved selector/],
+      warnings: [],
+      fixed: code,
     },
   ],
 });

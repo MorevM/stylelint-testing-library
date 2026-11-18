@@ -18,4 +18,12 @@ export type RejectedTestCase = TestCase & PartialOptional<Warning, 'message'> & 
 	 * Optional if `message` is used.
 	 */
 	warnings?: Warning[];
+
+	/**
+	 * Configuration warnings in the order reported for this CSS.
+	 * Strings match the full warning text.
+	 *
+	 * @default []
+	 */
+	invalidOptionWarnings?: Array<string | RegExp>;
 };
