@@ -72,6 +72,12 @@ const testRule = (schema: InternalTestRuleSchema) => {
 		'There are no test cases',
 	);
 
+	const { warningsFrom } = testRuleSchema;
+	universal.assert.ok(
+		warningsFrom?.length !== 0,
+		'warningsFrom must contain at least one rule name. Omit it to check all rules.',
+	);
+
 	const nameSuffix = (() => {
 		if (testRuleSchema.description) return testRuleSchema.description;
 		return testGroupWithoutDescriptionAppearance === 'config'
@@ -85,7 +91,6 @@ const testRule = (schema: InternalTestRuleSchema) => {
 	})();
 
 	const actualRuleName = testRuleSchema.ruleName ?? factorySchema.ruleName;
-	const { warningsFrom } = testRuleSchema;
 	const selectWarnings = (warnings: LintResult['warnings']) => {
 		if (!warningsFrom) return warnings;
 		return warnings.filter(({ rule }) => rule === 'CssSyntaxError' || warningsFrom.includes(rule));

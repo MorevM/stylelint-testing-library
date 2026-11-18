@@ -101,6 +101,16 @@ testRule({
 });
 
 testRule({
+	description: 'Checks warnings from extra rules when warningsFrom is omitted',
+	config: ['.a'],
+	extraRules: { 'color-hex-length': 'long' },
+	reject: [{
+		code: '.a { color: #fff; }',
+		message: 'Expected "#fff" to be "#ffffff" (color-hex-length)',
+	}],
+});
+
+testRule({
 	description: 'Selects warnings while applying all fixers',
 	config: ['.a'],
 	extraRules: { 'color-hex-length': 'long' },
